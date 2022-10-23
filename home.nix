@@ -137,6 +137,7 @@
 
       colorscheme OceanicNext
       set colorcolumn=88
+      set statusline+=%F
 
       nmap Y "+y
       vmap Y "+y
