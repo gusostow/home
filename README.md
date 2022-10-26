@@ -1,4 +1,4 @@
-My [Home Manager](https://nixos.wiki/wiki/Home_Manager) set up.
+My [Nix Home Manager](https://nixos.wiki/wiki/Home_Manager) set up.
 
 # Set up
 
