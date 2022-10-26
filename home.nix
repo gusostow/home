@@ -33,7 +33,6 @@
     git
     hyperfine
     nixfmt
-    oh-my-zsh
     poetry
     postgresql
     ripgrep
@@ -53,6 +52,10 @@
       bindkey '^E' autosuggest-accept
       bindkey '^P' up-line-or-history
       bindkey '^N' down-line-or-history
+
+      if [[ -f $HOME/.config/secrets ]]; then
+          source $HOME/.config/secrets
+      fi
     '' + builtins.readFile sh/utils.sh;
     shellAliases = {
       ".." = "cd ..";
@@ -98,7 +101,6 @@
 
   programs.autojump.enable = true;
 
-  # TODO: factor out into seperate file
   programs.neovim = {
     enable = true;
     withPython3 = true;
@@ -111,6 +113,8 @@
       coc-json
       coc-pairs
       coc-pyright
+      coc-sh
+      coc-yaml
     ];
     extraPython3Packages = (ps: with ps; [ isort black ]);
     coc = {

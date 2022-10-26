@@ -31,3 +31,12 @@ function stdouttime {
     echo "$(((tc - tp) / 1000000000))s: $line"
   done
 }
+
+function nvim-server {
+    mkdir -p $HOME/.cache/nvim 
+    nvim --listen $HOME/.cache/nvim/server.pipe "$@"
+}
+
+function v {
+    nvim --server $HOME/.cache/nvim/server.pipe --remote "$(realpath $1)"
+}
