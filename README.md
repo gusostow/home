@@ -30,3 +30,4 @@ stack traceback:
         /home/ec2-user/.config/nvim/init.lua:1: in main chunk
 Press ENTER or type command to continue
 ```
+- Distinguish hosts from the shell prompt. Instances config feels too similar to my laptop!
