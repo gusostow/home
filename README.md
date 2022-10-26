@@ -21,3 +21,12 @@ $ ./home/bootstrap.sh
 /home/ec2-user/.zshenv:.:2: no such file or directory: /Users/aostow/.nix-profile/etc/profile.d/hm-session-vars.sh
 ```
 - Clipboard access on EC2
+- Laptop home directory leaked into nvim config. Error from EC2:
+```
+Error detected while processing /home/ec2-user/.config/nvim/init.lua:
+E5113: Error while calling lua chunk: /home/ec2-user/.config/nvim/init.lua:1: Vim(source):E484: Can't open file /Users/aostow/.config/nvim/init-home-manager.vim
+stack traceback:
+        [C]: in function 'cmd'
+        /home/ec2-user/.config/nvim/init.lua:1: in main chunk
+Press ENTER or type command to continue
+```
