@@ -59,7 +59,7 @@
     '' + builtins.readFile sh/utils.sh;
     shellAliases = {
       ".." = "cd ..";
-      "..." = "cd ...";
+      "..." = "cd ../..";
       c = "clear";
       cat = "bat";
       g = "git";

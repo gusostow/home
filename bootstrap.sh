@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-set -euo pipefail
+set -eo pipefail
 
 function log { echo "$@" >&2; }
 function run { log "+ $@"; "$@"; }
@@ -16,6 +16,7 @@ elif [[ -f ~/.zshrc ]]; then
 else
     log "No rc files found! Exiting..."
     exit 1
+fi
 
 run nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 run nix-channel --update
@@ -31,5 +32,5 @@ run ln -s ~/home/home.nix ~/.config/nixpkgs/home.nix
 run home-manager switch
 
 # launch a new shell with everything activated
-run exec zsh
+run exec $(nix-build '<nixpkgs>' -A zsh)/bin/zsh
 
