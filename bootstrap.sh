@@ -32,5 +32,5 @@ run ln -s ~/home/home.nix ~/.config/nixpkgs/home.nix
 run home-manager switch
 
 # launch a new shell with everything activated
-run exec $(nix-build '<nixpkgs>' -A zsh)/bin/zsh
+run exec $(nix-build --no-out-link '<nixpkgs>' -A zsh)/bin/zsh
 
