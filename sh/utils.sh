@@ -9,7 +9,7 @@ function cd {
 }
 
 function abs {
-    realpath --no-symlinks "$1" | tr -d "\n" | copy
+    realpath "$1" | tr -d "\n" | copy
 }
 
 function share-cmd {
@@ -39,4 +39,9 @@ function nvim-server {
 
 function v {
     nvim --server $HOME/.cache/nvim/server.pipe --remote "$(realpath $1)"
+}
+
+function runc {
+    local out="${1%.c}"
+    gcc -o $out "$1" && "./$out"
 }

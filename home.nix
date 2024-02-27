@@ -1,4 +1,11 @@
-# TODO: ipython custom module
+# TODO: flake
+# TODO: vim comment hotkey
+# TODO: try out spacebar leader
+# TODO: harpoon
+# TODO: break lua init into separate files
+# TODO: fix golang lsp
+# TODO: nix linting
+# TODO: separate zshrc
 
 { config, pkgs, ... }:
 
@@ -16,10 +23,18 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.05";
+  home.stateVersion = "23.11";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   home.packages = with pkgs; [
     autojump
@@ -29,29 +44,39 @@
     curl
     docker
     du-dust
+    flyctl
     fzf
+    gcc
     git
+    go
+    htop
     hyperfine
     nixfmt
+    pandoc
     poetry
     postgresql
     ripgrep
     sqlite
+    s5cmd
     tldr
     tmux
     tree
     wget
     (python3.withPackages
-      (p: with p; [ boto3 ipython jupyter numpy pandas requests ]))
+      (p: with p; [ boto3 ipdb ipython jupyter numpy pandas pip requests rich sphinx ]))
   ];
 
   programs.zsh = {
     enable = true;
     initExtraFirst = ''
       set -o vi
+
       bindkey '^E' autosuggest-accept
       bindkey '^P' up-line-or-history
       bindkey '^N' down-line-or-history
+
+      # unbind fzf-cd-widget, set by fzf/shell/key-bindings.sh
+      bindkey -r '\ec'
 
       if [[ -f $HOME/.config/secrets ]]; then
           source $HOME/.config/secrets
@@ -67,7 +92,10 @@
       gco = "git checkout";
     };
 
-    sessionVariables = { EDITOR = "nvim"; };
+    sessionVariables = { 
+      EDITOR = "nvim"; 
+      PYTHONBREAKPOINT = "ipdb.set_trace";
+    };
 
     enableAutosuggestions = true;
 
@@ -92,6 +120,10 @@
     enable = true;
     userName = "Augustus Ostow";
     userEmail = "ostowster@gmail.com";
+    aliases = {
+      co = "checkout";
+      s = "status";
+    };
   };
 
   programs.fzf = {
@@ -105,16 +137,20 @@
     enable = true;
     withPython3 = true;
     plugins = with pkgs.vimPlugins; [
-      oceanic-next
-      fzf-vim
-      vim-fugitive
-      vim-nix # syntax highlighting
+      coc-clangd
       coc-fzf
       coc-json
+      coc-go
+      coc-lua
       coc-pairs
       coc-pyright
       coc-sh
       coc-yaml
+      fzf-vim
+      harpoon
+      oceanic-next
+      vim-fugitive
+      vim-nix
     ];
     extraPython3Packages = (ps: with ps; [ isort black ]);
     coc = {
@@ -125,43 +161,7 @@
       };
 
     };
-    extraConfig = ''
-      set ignorecase
-      set smartcase
-      set autoindent 
-      set smartindent
-      set shiftwidth=4
-      set softtabstop=4
-      set tabstop=4
-      set expandtab
-      filetype indent plugin on 
-      let g:pyindent_open_paren = 'shiftwidth()'
-      set confirm
-      set number
-
-      colorscheme OceanicNext
-      set colorcolumn=88
-      set statusline+=%F
-
-      nmap Y "+y
-      vmap Y "+y
-
-      nnoremap <C-h> :tabprevious<CR>
-      nnoremap <C-l> :tabnext<CR>
-
-      set hlsearch
-      nnoremap <C-[> :nohl<CR><C-[>
-
-      nmap <Leader>h  :e $HOME/dev/home/home.nix<CR>
-      nmap <Leader>sv :source $MYVIMRC<CR>
-      nmap <Leader>cp :let @+ = expand("%:p")<CR>
-
-      map <leader>ew :e     <C-R>=expand("%:p:h") . "/" <CR>
-      map <leader>ev :sp    <C-R>=expand("%:p:h") . "/" <CR>
-      map <leader>et :tabe  <C-R>=expand("%:p:h") . "/" <CR>
-
-      nmap <leader>F  :Format<CR>
-    '' + builtins.readFile nvim/coc.vim;
+    extraLuaConfig = builtins.readFile nvim/init.lua + builtins.readFile nvim/coc.lua;
   };
 }
 
