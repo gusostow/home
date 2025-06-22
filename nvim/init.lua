@@ -10,6 +10,7 @@ vim.cmd('filetype plugin indent on')
 vim.g.pyindent_open_paren = 'shiftwidth()'
 vim.opt.confirm = true
 vim.opt.number = true
+vim.o.mouse = ""
 
 vim.cmd('colorscheme OceanicNext')
 vim.opt.colorcolumn = '88'
@@ -17,6 +18,9 @@ vim.opt.statusline = "%f %h%m%r%=%-14.(%l,%c%V%) %P"
 
 vim.api.nvim_set_keymap('n', 'Y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('v', 'Y', '"+y', { noremap = true })
+
+vim.api.nvim_set_keymap('i', '<C-f>', '<Right>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-b>', '<Left>', {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap('n', '<C-h>', ':tabprevious<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-l>', ':tabnext<CR>', { noremap = true })
@@ -34,4 +38,5 @@ vim.api.nvim_set_keymap('n', '<leader>et', ':tabe <C-R>=expand("%:p:h") . "/" <C
 
 vim.api.nvim_set_keymap('n', '<leader>F', ':Format<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>f', ':Files<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>g', ':GFiles<CR>', { noremap = true })
 

@@ -1,11 +1,11 @@
 # TODO: flake
+# TODO: nix linting
 # TODO: vim comment hotkey
 # TODO: try out spacebar leader
 # TODO: harpoon
 # TODO: break lua init into separate files
-# TODO: fix golang lsp
-# TODO: nix linting
-# TODO: separate zshrc
+# TODO: pin nixpkgs in this config file?
+# TODO: global gitignore
 
 { config, pkgs, ... }:
 
@@ -36,12 +36,18 @@
     ];
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   home.packages = with pkgs; [
     autojump
     awscli2
     bat
+    cargo
     coreutils
     curl
+    code-cursor
+    darwin.libiconv
+    direnv
     docker
     du-dust
     flyctl
@@ -49,39 +55,94 @@
     gcc
     git
     go
+    gopls
+    helix
     htop
     hyperfine
-    nixfmt
+    nixfmt-rfc-style
     pandoc
-    poetry
     postgresql
+    protobuf
+    pstree
     ripgrep
+    rust-analyzer
+    rustc
+    rustfmt
+    rustlings
     sqlite
     s5cmd
     tldr
     tmux
     tree
+    uv
     wget
-    (python3.withPackages
-      (p: with p; [ boto3 ipdb ipython jupyter numpy pandas pip requests rich sphinx ]))
+    (python3.withPackages (
+      p: with p; [
+        boto3
+        cookiecutter
+        grpcio-tools
+        ipdb
+        ipython
+        jupyter
+        numpy
+        pandas
+        pip
+        pipx
+        python-lsp-server
+        requests
+        rich
+        sphinx
+      ]
+    ))
   ];
 
   programs.zsh = {
     enable = true;
-    initExtraFirst = ''
-      set -o vi
+    history.save = 1000000;
+    plugins = [
+      {
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "v0.8.0";
+          sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
+        };
+      }
+    ];
+    initContent = pkgs.lib.mkBefore (
+      ''
+        set -o vi
 
-      bindkey '^E' autosuggest-accept
-      bindkey '^P' up-line-or-history
-      bindkey '^N' down-line-or-history
+        bindkey '^E' autosuggest-accept
+        bindkey '^P' up-line-or-history
+        bindkey '^N' down-line-or-history
 
-      # unbind fzf-cd-widget, set by fzf/shell/key-bindings.sh
-      bindkey -r '\ec'
+        # unbind fzf-cd-widget, set by fzf/shell/key-bindings.sh
+        bindkey -r '\ec'
 
-      if [[ -f $HOME/.config/secrets ]]; then
-          source $HOME/.config/secrets
-      fi
-    '' + builtins.readFile sh/utils.sh;
+        if [[ -f $HOME/.config/secrets ]]; then
+            source $HOME/.config/secrets
+        fi
+      '' + builtins.readFile sh/utils.sh + ''
+        # Prepend a magenta "nix-shell" tag to the left prompt when inside a nix shell.
+        function _nix_shell_prompt() {
+          # Save original prompt once
+          if [[ -z "$__ORIG_PROMPT_SAVED" ]]; then
+            __ORIG_PROMPT="$PROMPT"
+            __ORIG_PROMPT_SAVED=1
+          fi
+          if [[ -n "$IN_NIX_SHELL" ]]; then
+            PROMPT="%F{magenta}nix-shell%f $__ORIG_PROMPT"
+          else
+            PROMPT="$__ORIG_PROMPT"
+          fi
+        }
+        autoload -Uz add-zsh-hook
+        add-zsh-hook precmd _nix_shell_prompt
+      ''
+    );
     shellAliases = {
       ".." = "cd ..";
       "..." = "cd ../..";
@@ -92,16 +153,21 @@
       gco = "git checkout";
     };
 
-    sessionVariables = { 
-      EDITOR = "nvim"; 
+    sessionVariables = {
+      EDITOR = "nvim";
       PYTHONBREAKPOINT = "ipdb.set_trace";
     };
 
-    enableAutosuggestions = true;
+    autosuggestion = {
+      enable = true;
+    };
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "docker" ];
+      plugins = [
+        "git"
+        "docker"
+      ];
       theme = "robbyrussell";
     };
   };
@@ -124,6 +190,9 @@
       co = "checkout";
       s = "status";
     };
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
 
   programs.fzf = {
@@ -133,6 +202,11 @@
 
   programs.autojump.enable = true;
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.neovim = {
     enable = true;
     withPython3 = true;
@@ -140,10 +214,11 @@
       coc-clangd
       coc-fzf
       coc-json
-      coc-go
+      coc-go # required me to manually install xcode
       coc-lua
       coc-pairs
       coc-pyright
+      coc-rust-analyzer
       coc-sh
       coc-yaml
       fzf-vim
@@ -152,16 +227,24 @@
       vim-fugitive
       vim-nix
     ];
-    extraPython3Packages = (ps: with ps; [ isort black ]);
+    extraPackages = with pkgs; [
+      gopls # coc doesn't seem to register this
+    ];
+    extraPython3Packages = (
+      ps: with ps; [
+        isort
+        black
+      ]
+    );
     coc = {
       enable = true;
       settings = {
         "python.formatting.provider" = "black";
         "python.pythonPath" = "nvim-python3";
+        "inlayHint.enable" = false;
       };
 
     };
-    extraLuaConfig = builtins.readFile nvim/init.lua + builtins.readFile nvim/coc.lua;
+    extraLuaConfig = builtins.readFile nvim/coc.lua + builtins.readFile nvim/init.lua;
   };
 }
-
