@@ -125,23 +125,8 @@
         if [[ -f $HOME/.config/secrets ]]; then
             source $HOME/.config/secrets
         fi
-      '' + builtins.readFile sh/utils.sh + ''
-        # Prepend a magenta "nix-shell" tag to the left prompt when inside a nix shell.
-        function _nix_shell_prompt() {
-          # Save original prompt once
-          if [[ -z "$__ORIG_PROMPT_SAVED" ]]; then
-            __ORIG_PROMPT="$PROMPT"
-            __ORIG_PROMPT_SAVED=1
-          fi
-          if [[ -n "$IN_NIX_SHELL" ]]; then
-            PROMPT="%F{magenta}nix-shell%f $__ORIG_PROMPT"
-          else
-            PROMPT="$__ORIG_PROMPT"
-          fi
-        }
-        autoload -Uz add-zsh-hook
-        add-zsh-hook precmd _nix_shell_prompt
       ''
+      + builtins.readFile sh/utils.sh
     );
     shellAliases = {
       ".." = "cd ..";
