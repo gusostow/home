@@ -4,10 +4,16 @@
 # TODO: try out spacebar leader
 # TODO: harpoon
 # TODO: break lua init into separate files
-# TODO: pin nixpkgs in this config file?
 # TODO: global gitignore
 
-{ config, pkgs, ... }:
+{ config, ... }:
+
+let
+  pkgs = import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/a7fc11be66bdfb5cdde611ee5ce381c183da8386.tar.gz";
+    sha256 = "0h3gvjbrlkvxhbxpy01n603ixv0pjy19n9kf73rdkchdvqcn70j2";
+  }) { config.allowUnfree = true; };
+in
 
 {
   # Home Manager needs a bit of information about you and the
@@ -39,43 +45,48 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
-    autojump
+    arduino-cli
+    audacity
     awscli2
+    nodePackages.aws-cdk
     bat
-    cargo
+    cargo-lambda
+    cmake
     coreutils
     curl
-    code-cursor
     darwin.libiconv
-    direnv
     docker
-    du-dust
+    dust
+    ffmpeg
     flyctl
-    fzf
+    fx
     gcc
-    git
     go
     gopls
     helix
     htop
     hyperfine
+    imagemagick
+    jq
+    libllvm
     nixfmt-rfc-style
+    nodejs
     pandoc
+    platformio
     postgresql
     protobuf
     pstree
     ripgrep
-    rust-analyzer
-    rustc
-    rustfmt
-    rustlings
+    rustup
     sqlite
     s5cmd
+    terraform
     tldr
-    tmux
     tree
     uv
     wget
+    yt-dlp-light
+    zig
     (python3.withPackages (
       p: with p; [
         boto3
@@ -86,6 +97,7 @@
         jupyter
         numpy
         pandas
+        pillow
         pip
         pipx
         python-lsp-server
@@ -122,6 +134,12 @@
         # unbind fzf-cd-widget, set by fzf/shell/key-bindings.sh
         bindkey -r '\ec'
 
+        export AWS_PROFILE=admin
+
+        export PATH=$PATH:~/.npm-global/bin
+
+        export LIBRARY_PATH=~/.nix-profile/lib
+
         if [[ -f $HOME/.config/secrets ]]; then
             source $HOME/.config/secrets
         fi
@@ -136,11 +154,13 @@
       g = "git";
       gs = "git status";
       gco = "git checkout";
+      push = "git push origin HEAD";
     };
 
     sessionVariables = {
       EDITOR = "nvim";
       PYTHONBREAKPOINT = "ipdb.set_trace";
+      RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
     };
 
     autosuggestion = {
@@ -187,6 +207,11 @@
 
   programs.autojump.enable = true;
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -205,6 +230,7 @@
       coc-pyright
       coc-rust-analyzer
       coc-sh
+      coc-tsserver
       coc-yaml
       fzf-vim
       harpoon
@@ -214,19 +240,23 @@
     ];
     extraPackages = with pkgs; [
       gopls # coc doesn't seem to register this
+      ruff
+      terraform-ls
     ];
     extraPython3Packages = (
       ps: with ps; [
         isort
-        black
       ]
     );
     coc = {
       enable = true;
       settings = {
-        "python.formatting.provider" = "black";
+        "python.formatting.provider" = "ruff";
         "python.pythonPath" = "nvim-python3";
         "inlayHint.enable" = false;
+        "terraform.languageServer.path" = "terraform-ls";
+        "terraform.languageServer.args" = "serve";
+        "terraform.formatOnSave" = true;
       };
 
     };

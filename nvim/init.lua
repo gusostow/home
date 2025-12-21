@@ -13,7 +13,7 @@ vim.opt.number = true
 vim.o.mouse = ""
 
 vim.cmd('colorscheme OceanicNext')
-vim.opt.colorcolumn = '88'
+vim.opt.colorcolumn = '100'
 vim.opt.statusline = "%f %h%m%r%=%-14.(%l,%c%V%) %P"
 
 vim.api.nvim_set_keymap('n', 'Y', '"+y', { noremap = true })
@@ -40,3 +40,20 @@ vim.api.nvim_set_keymap('n', '<leader>F', ':Format<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>f', ':Files<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>g', ':GFiles<CR>', { noremap = true })
 
+-- Arduino support
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = {"*.ino", "*.pde"},
+  callback = function()
+    vim.bo.filetype = "cpp"
+  end
+})
+
+-- C++ files use 2 spaces for indentation
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "cpp",
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
+    vim.bo.tabstop = 2
+  end
+})
