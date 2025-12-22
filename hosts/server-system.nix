@@ -80,6 +80,9 @@
     description = "Augustus";
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDFFejeagAt8t4oK1CgY/1jOw5UqHYSybEG2XZts8WNZADIh4tL6OhfG66TTxXNdVTcFhFSQlN5zZ/3C2g/o4X9wc52J11qmmXO/1xN0640oU7+/POW+HWZMsgoQB0GOptNI6gSzoMGayZqmWJYra1RmJYTJfWCAFwhPGLzXrnxCnH6koSqXutqsAstm+MXOgkv1Xle5Ul2ZEO3gx/6OjoYjlf7NX6WDJCL1bF8IpAFbIBvTRAQ07U0i2gmkaaFQFsGUIht6lBdLoBvAWoYOoHOhnv+/LN8/xVeOPuB7BKZfJ02mGnKrKHQWv7tjywe0zTuZVPKCuvaZrozY7yNzGrHGDAMNaaX5WQg+FwDrJJ1kp2ZJk2VdZ+N7zVEeAsQl87JzVlqbQIQvtQt3aFo96n+2ZarWYdCEiPQ0iQxHFJdDiXIoZ5BSWc5bDXREqLazTAWqXaXl71XfHXmgaCrwoa+t6+1YHafhzWOSMo9NjSerTVY2EgcVJMD9hoDKP9xHQs= aostow@Augustuss-Air.nyc.rr.com"
+    ];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -115,7 +118,17 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+    # Only allow SSH for aostow user
+    extraConfig = ''
+      AllowUsers aostow
+    '';
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
