@@ -42,6 +42,9 @@
           # Media stack
           ./modules/plex.nix
 
+          # Reverse proxy
+          ./modules/caddy.nix
+
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
