@@ -43,13 +43,9 @@
 
             # Laptop-specific packages (GUI apps, macOS-specific, personal tools)
             home.packages = with pkgs; [
-              arduino-cli
               audacity
               darwin.libiconv
-              dust
               ffmpeg
-              helix
-              hyperfine
               imagemagick
               yt-dlp-light
             ];
@@ -58,12 +54,7 @@
             programs.zsh = {
               initExtra = ''
                 export AWS_PROFILE=admin
-                export PATH=$PATH:~/.npm-global/bin
               '';
-              sessionVariables = {
-                PYTHONBREAKPOINT = "ipdb.set_trace";
-                RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
-              };
             };
           }
         ];

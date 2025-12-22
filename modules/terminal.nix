@@ -109,7 +109,9 @@
     bat
     coreutils
     curl
+    dust
     fx
+    helix
     htop
     jq
     ripgrep

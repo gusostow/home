@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    # Cloud/DevOps
+    # cloud
     awscli2
     nodePackages.aws-cdk
     cargo-lambda
@@ -11,13 +11,14 @@
     s5cmd
     terraform
 
-    # Build tools & compilers
+    # build tools & compilers
     cmake
     gcc
+    hyperfine
     libllvm
     protobuf
 
-    # Languages & runtimes
+    # languages & runtimes
     go
     gopls
     nodejs
@@ -35,11 +36,11 @@
       ]
     ))
 
-    # Databases
+    # databases
     postgresql
     sqlite
 
-    # Dev utilities
+    # dev utilities
     nixfmt-rfc-style
     pandoc
     platformio
@@ -47,4 +48,15 @@
     tldr
     uv
   ];
+ 
+  # Laptop-specific zsh configuration
+  programs.zsh = {
+    initExtra = ''
+      export PATH=$PATH:~/.npm-global/bin
+    '';
+    sessionVariables = {
+      PYTHONBREAKPOINT = "ipdb.set_trace";
+      RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
+    };
+  };
 }
