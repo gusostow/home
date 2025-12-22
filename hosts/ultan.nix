@@ -9,7 +9,6 @@
 
   # Server-specific packages (if any)
   home.packages = with pkgs; [
-    # Add server-specific tools here if needed
-    # Most tools come from terminal.nix, dev.nix, neovim.nix
+    dig
   ];
 }
