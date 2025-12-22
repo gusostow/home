@@ -78,6 +78,17 @@
     #media-session.enable = true;
   };
 
+  # Disable automatic suspend/hibernate
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=no
+  '';
+
+  # Disable GNOME's automatic suspend
+  services.xserver.displayManager.gdm.autoSuspend = false;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
