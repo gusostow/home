@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 set -euo pipefail
 
 HOSTED_ZONE_ID="Z0419929NHM3F17LIKCL"
