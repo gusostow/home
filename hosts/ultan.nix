@@ -10,5 +10,6 @@
   # Server-specific packages (if any)
   home.packages = with pkgs; [
     dig
+    unixtools.ifconfig
   ];
 }
