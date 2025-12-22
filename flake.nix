@@ -45,6 +45,9 @@
           # Reverse proxy
           ./modules/caddy.nix
 
+          # DDNS
+          ./modules/ddns.nix
+
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
