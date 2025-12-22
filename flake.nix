@@ -23,6 +23,7 @@
         modules = [
           ./modules/terminal.nix
           ./modules/dev.nix
+          ./modules/neovim.nix
           {
             home.username = "aostow";
             home.homeDirectory = "/Users/aostow";
@@ -63,51 +64,6 @@
                 PYTHONBREAKPOINT = "ipdb.set_trace";
                 RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
               };
-            };
-
-            programs.neovim = {
-              enable = true;
-              withPython3 = true;
-              plugins = with pkgs.vimPlugins; [
-                coc-clangd
-                coc-fzf
-                coc-json
-                coc-go
-                coc-lua
-                coc-pairs
-                coc-pyright
-                coc-rust-analyzer
-                coc-sh
-                coc-tsserver
-                coc-yaml
-                fzf-vim
-                harpoon
-                oceanic-next
-                vim-fugitive
-                vim-nix
-              ];
-              extraPackages = with pkgs; [
-                gopls
-                ruff
-                terraform-ls
-              ];
-              extraPython3Packages = (
-                ps: with ps; [
-                  isort
-                ]
-              );
-              coc = {
-                enable = true;
-                settings = {
-                  "python.formatting.provider" = "ruff";
-                  "python.pythonPath" = "nvim-python3";
-                  "inlayHint.enable" = false;
-                  "terraform.languageServer.path" = "terraform-ls";
-                  "terraform.languageServer.args" = "serve";
-                  "terraform.formatOnSave" = true;
-                };
-              };
-              extraLuaConfig = builtins.readFile ./nvim/coc.lua + builtins.readFile ./nvim/init.lua;
             };
           }
         ];
