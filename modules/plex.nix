@@ -3,6 +3,7 @@
 {
   imports = [
     ./plex/media-server.nix
+    ./plex/downloads.nix
   ];
 
   # Shared configuration for media stack
