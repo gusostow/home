@@ -32,6 +32,9 @@
         if [[ -f $HOME/.config/secrets ]]; then
             source $HOME/.config/secrets
         fi
+
+        # Customize prompt to always show hostname in color
+        PROMPT="%{$fg[cyan]%}%m%{$reset_color%} $PROMPT"
       ''
       + builtins.readFile ../sh/utils.sh
     );
