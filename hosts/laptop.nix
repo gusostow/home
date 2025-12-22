@@ -11,10 +11,13 @@
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      max-jobs = "auto";
+    };
   };
 
   # Laptop-specific packages (GUI apps, macOS-specific, personal tools)
@@ -28,7 +31,7 @@
 
   # Laptop-specific zsh configuration
   programs.zsh = {
-    initExtra = ''
+    initContent = ''
       export AWS_PROFILE=admin
     '';
   };

@@ -116,7 +116,12 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes and new nix commands system-wide
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+    "auto-allocate-uids"
+    "configurable-impure-env"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

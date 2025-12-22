@@ -51,7 +51,7 @@
  
   # Laptop-specific zsh configuration
   programs.zsh = {
-    initExtra = ''
+    initContent = ''
       export PATH=$PATH:~/.npm-global/bin
     '';
     sessionVariables = {

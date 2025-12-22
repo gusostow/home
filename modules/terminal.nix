@@ -16,7 +16,7 @@
         };
       }
     ];
-    initExtra = pkgs.lib.mkBefore (
+    initContent = pkgs.lib.mkBefore (
       ''
         set -o vi
 
@@ -79,13 +79,15 @@
 
   programs.git = {
     enable = true;
-    userName = "Augustus Ostow";
-    userEmail = "ostowster@gmail.com";
-    aliases = {
-      co = "checkout";
-      s = "status";
-    };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Augustus Ostow";
+        email = "ostowster@gmail.com";
+      };
+      alias = {
+        co = "checkout";
+        s = "status";
+      };
       init.defaultBranch = "main";
     };
   };
