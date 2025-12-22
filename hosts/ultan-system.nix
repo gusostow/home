@@ -143,9 +143,16 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  # Mount 2TB SATA SSD
+  fileSystems."/space" = {
+    device = "/dev/disk/by-uuid/8a784acc-6319-4459-8fec-d1c3e90a5ac5";
+    fsType = "ext4";
+    options = [ "defaults" ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # on your system were taken. It's perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
