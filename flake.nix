@@ -21,6 +21,7 @@
         inherit pkgs;
 
         modules = [
+          ./modules/terminal.nix
           {
             home.username = "aostow";
             home.homeDirectory = "/Users/aostow";
@@ -43,25 +44,21 @@
               audacity
               awscli2
               nodePackages.aws-cdk
-              bat
               cargo-lambda
               cmake
               coreutils
-              curl
               darwin.libiconv
               docker
               dust
               ffmpeg
               flyctl
-              # fx  # Temporarily disabled due to flaky tests
+              fx  # Temporarily disabled due to flaky tests
               gcc
               go
               gopls
               helix
-              htop
               hyperfine
               imagemagick
-              jq
               libllvm
               nixfmt-rfc-style
               nodejs
@@ -70,145 +67,27 @@
               postgresql
               protobuf
               pstree
-              ripgrep
               rustup
               sqlite
               s5cmd
               terraform
               tldr
-              tree
-              uv
-              wget
               yt-dlp-light
               zig
-              (python3.withPackages (
-                p: with p; [
-                  boto3
-                  cookiecutter
-                  grpcio-tools
-                  ipdb
-                  ipython
-                  jupyter
-                  numpy
-                  pandas
-                  pillow
-                  pip
-                  pipx
-                  python-lsp-server
-                  requests
-                  rich
-                  sphinx
-                ]
-              ))
+              # Laptop-specific python packages removed - use uv for project deps
+              # If you need these system-wide, add them to modules/terminal.nix
             ];
 
+            # Laptop-specific zsh configuration
             programs.zsh = {
-              enable = true;
-              history.save = 1000000;
-              plugins = [
-                {
-                  name = "zsh-nix-shell";
-                  file = "nix-shell.plugin.zsh";
-                  src = pkgs.fetchFromGitHub {
-                    owner = "chisui";
-                    repo = "zsh-nix-shell";
-                    rev = "v0.8.0";
-                    sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
-                  };
-                }
-              ];
-              initExtra = pkgs.lib.mkBefore (
-                ''
-                  set -o vi
-
-                  bindkey '^E' autosuggest-accept
-                  bindkey '^P' up-line-or-history
-                  bindkey '^N' down-line-or-history
-
-                  # unbind fzf-cd-widget, set by fzf/shell/key-bindings.sh
-                  bindkey -r '\ec'
-
-                  export AWS_PROFILE=admin
-
-                  export PATH=$PATH:~/.npm-global/bin
-
-                  export LIBRARY_PATH=~/.nix-profile/lib
-
-                  if [[ -f $HOME/.config/secrets ]]; then
-                      source $HOME/.config/secrets
-                  fi
-                ''
-                + builtins.readFile ./sh/utils.sh
-              );
-              shellAliases = {
-                ".." = "cd ..";
-                "..." = "cd ../..";
-                c = "clear";
-                cat = "bat";
-                g = "git";
-                gs = "git status";
-                gco = "git checkout";
-                push = "git push origin HEAD";
-              };
-
+              initExtra = ''
+                export AWS_PROFILE=admin
+                export PATH=$PATH:~/.npm-global/bin
+              '';
               sessionVariables = {
-                EDITOR = "nvim";
                 PYTHONBREAKPOINT = "ipdb.set_trace";
                 RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
               };
-
-              autosuggestion = {
-                enable = true;
-              };
-
-              oh-my-zsh = {
-                enable = true;
-                plugins = [
-                  "git"
-                  "docker"
-                ];
-                theme = "robbyrussell";
-              };
-            };
-
-            programs.tmux = {
-              enable = true;
-              prefix = "C-a";
-              keyMode = "vi";
-              escapeTime = 10;
-              historyLimit = 5000;
-              terminal = "xterm-256color";
-              extraConfig = builtins.readFile ./tmux/.tmux.conf;
-            };
-
-            programs.git = {
-              enable = true;
-              userName = "Augustus Ostow";
-              userEmail = "ostowster@gmail.com";
-              aliases = {
-                co = "checkout";
-                s = "status";
-              };
-              extraConfig = {
-                init.defaultBranch = "main";
-              };
-            };
-
-            programs.fzf = {
-              enable = true;
-              enableZshIntegration = true;
-            };
-
-            programs.autojump.enable = true;
-
-            programs.zoxide = {
-              enable = true;
-              enableZshIntegration = true;
-            };
-
-            programs.direnv = {
-              enable = true;
-              enableZshIntegration = true;
             };
 
             programs.neovim = {
