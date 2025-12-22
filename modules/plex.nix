@@ -5,6 +5,7 @@
     ./plex/media-server.nix
     ./plex/downloads.nix
     ./plex/indexer.nix
+    ./plex/radarr.nix
   ];
 
   # Shared configuration for media stack
