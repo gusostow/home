@@ -29,15 +29,15 @@
         ];
       };
 
-      # NixOS server (complete system + home-manager)
-      nixosConfigurations.server = nixpkgs.lib.nixosSystem {
+      # NixOS server ultan (complete system + home-manager)
+      nixosConfigurations.ultan = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           # Hardware configuration
-          ./hosts/server-hardware.nix
+          ./hosts/ultan-hardware.nix
 
           # System configuration
-          ./hosts/server-system.nix
+          ./hosts/ultan-system.nix
 
           # Home-manager integration
           home-manager.nixosModules.home-manager
@@ -47,7 +47,7 @@
               useUserPackages = true;
               users.aostow = {
                 imports = [
-                  ./hosts/server.nix
+                  ./hosts/ultan.nix
                   ./modules/terminal.nix
                   ./modules/neovim.nix
                   # Add ./modules/dev.nix if you want dev tools on server
