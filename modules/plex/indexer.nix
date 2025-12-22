@@ -12,7 +12,10 @@
     systemd.services.prowlarr.after = [ "space.mount" ];
     systemd.services.prowlarr.requires = [ "space.mount" ];
 
-    # Prowlarr runs as its own user, add to media group
-    users.users.prowlarr.extraGroups = [ "media" ];
+    # Create prowlarr user
+    users.users.prowlarr = {
+      isSystemUser = true;
+      group = "media";
+    };
   };
 }
