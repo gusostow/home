@@ -1,17 +1,31 @@
 { config, pkgs, lib, ... }:
 
+let
+  ddnsScript = pkgs.writeScriptBin "ddns-update" (builtins.readFile ./ddns-update.sh);
+in
 {
-  services.ddclient = {
-    enable = true;
-    protocol = "route53";
-    zone = "foamer.net";
-    domains = [ "plex.foamer.net" "requests.foamer.net" ];
-    interval = "5min";
+  # DDNS updater for Route53
+  systemd.services.ddns-update = {
+    description = "Update Route53 DNS records with current public IP";
+    path = with pkgs; [ awscli2 curl dnsutils ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${ddnsScript}/bin/ddns-update";
+    };
+    environment = {
+      # Use ddclient profile from /root/.aws/credentials
+      AWS_PROFILE = "ddclient";
+    };
   };
 
-  # Configure ddclient to use the "ddclient" AWS profile
-  systemd.services.ddclient.environment = {
-    # manually saved in /root/.aws/credentials
-    AWS_PROFILE = "ddclient";
+  # Run every 5 minutes
+  systemd.timers.ddns-update = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "1min";
+      OnUnitActiveSec = "5min";
+    };
   };
+
+  environment.systemPackages = with pkgs; [ awscli2 ];
 }
