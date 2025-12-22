@@ -107,22 +107,13 @@
   # Core CLI tools for terminal work
   home.packages = with pkgs; [
     bat
+    coreutils
     curl
+    fx
     htop
     jq
     ripgrep
     tree
-    uv
     wget
-    (python3.withPackages (
-      p: with p; [
-        ipdb
-        ipython
-        pip
-        pipx
-        requests
-        rich
-      ]
-    ))
   ];
 }

@@ -22,6 +22,7 @@
 
         modules = [
           ./modules/terminal.nix
+          ./modules/dev.nix
           {
             home.username = "aostow";
             home.homeDirectory = "/Users/aostow";
@@ -39,43 +40,17 @@
               ];
             };
 
+            # Laptop-specific packages (GUI apps, macOS-specific, personal tools)
             home.packages = with pkgs; [
               arduino-cli
               audacity
-              awscli2
-              nodePackages.aws-cdk
-              cargo-lambda
-              cmake
-              coreutils
               darwin.libiconv
-              docker
               dust
               ffmpeg
-              flyctl
-              fx  # Temporarily disabled due to flaky tests
-              gcc
-              go
-              gopls
               helix
               hyperfine
               imagemagick
-              libllvm
-              nixfmt-rfc-style
-              nodejs
-              pandoc
-              platformio
-              postgresql
-              protobuf
-              pstree
-              rustup
-              sqlite
-              s5cmd
-              terraform
-              tldr
               yt-dlp-light
-              zig
-              # Laptop-specific python packages removed - use uv for project deps
-              # If you need these system-wide, add them to modules/terminal.nix
             ];
 
             # Laptop-specific zsh configuration
