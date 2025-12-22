@@ -7,6 +7,7 @@
     ./plex/indexer.nix
     ./plex/radarr.nix
     ./plex/sonarr.nix
+    ./plex/overseerr.nix
   ];
 
   # Shared configuration for media stack
