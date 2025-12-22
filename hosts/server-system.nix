@@ -74,11 +74,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.aostow = {
     isNormalUser = true;
     description = "Augustus";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -86,6 +87,9 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Enable zsh system-wide
+  programs.zsh.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
