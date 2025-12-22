@@ -4,6 +4,7 @@
   imports = [
     ./plex/media-server.nix
     ./plex/downloads.nix
+    ./plex/indexer.nix
   ];
 
   # Shared configuration for media stack
