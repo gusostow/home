@@ -39,6 +39,9 @@
           # System configuration
           ./hosts/ultan-system.nix
 
+          # Media stack
+          ./modules/plex.nix
+
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
