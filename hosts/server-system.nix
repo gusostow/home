@@ -13,14 +13,21 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "server"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # Static IP configuration
+  networking = {
+    networkmanager.enable = false;  # Disable NetworkManager for static config
+    useDHCP = false;
+    interfaces.enp34s0 = {
+      useDHCP = false;
+      ipv4.addresses = [{
+        address = "192.168.0.245";
+        prefixLength = 24;
+      }];
+    };
+    defaultGateway = "192.168.0.1";  # Your router IP
+    nameservers = [ "192.168.0.1" "8.8.8.8" ];
+  };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
