@@ -16,8 +16,8 @@
         };
       }
     ];
-    initContent = (
-      pkgs.lib.mkBefore ''
+    initContent = pkgs.lib.mkMerge [
+      (pkgs.lib.mkBefore (''
         set -o vi
 
         bindkey '^E' autosuggest-accept
@@ -32,12 +32,12 @@
         if [[ -f $HOME/.config/secrets ]]; then
             source $HOME/.config/secrets
         fi
-      ''
-      + builtins.readFile ../sh/utils.sh
-    ) + pkgs.lib.mkAfter ''
-      # Customize prompt to always show hostname in color (must run after oh-my-zsh theme)
-      PROMPT="%{$fg[cyan]%}%m%{$reset_color%} $PROMPT"
-    '';
+      '' + builtins.readFile ../sh/utils.sh))
+      (pkgs.lib.mkAfter ''
+        # Customize prompt to always show hostname in color (must run after oh-my-zsh theme)
+        PROMPT="%{$fg[cyan]%}%m%{$reset_color%} $PROMPT"
+      '')
+    ];
     shellAliases = {
       ".." = "cd ..";
       "..." = "cd ../..";
