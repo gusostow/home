@@ -8,6 +8,7 @@
     ./plex/radarr.nix
     ./plex/sonarr.nix
     ./plex/overseerr.nix
+    ./plex/unpackerr.nix
   ];
 
   # Shared configuration for media stack
