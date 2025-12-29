@@ -4,6 +4,8 @@ let
   # Script to generate config with credentials at runtime
   configScript = pkgs.writeShellScript "unpackerr-config" ''
     cat > /tmp/unpackerr-runtime.conf <<EOF
+    interval = "2m"
+
     [[sonarr]]
     url = "http://localhost:8989"
     api_key = "$(cat $CREDENTIALS_DIRECTORY/sonarr-key)"
@@ -17,9 +19,6 @@ let
     paths = ["/space/downloads/complete"]
     protocols = "torrent"
     delete_orig = false
-
-    [interval]
-    check_interval = "2m"
     EOF
 
     exec ${pkgs.unpackerr}/bin/unpackerr -c /tmp/unpackerr-runtime.conf
