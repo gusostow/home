@@ -10,6 +10,17 @@
       user = "qbittorrent";
       group = "media";
       profileDir = "/space/config/qbittorrent";
+
+      # Configure download paths
+      serverConfig = {
+        Preferences = {
+          Downloads = {
+            SavePath = "/space/downloads/complete";
+            TempPath = "/space/downloads/incomplete";
+            TempPathEnabled = true;
+          };
+        };
+      };
     };
 
     # Create qbittorrent user
@@ -18,27 +29,8 @@
       group = "media";
     };
 
-    # Configure download paths via preStart script
-    systemd.services.qbittorrent = {
-      after = [ "space.mount" ];
-      requires = [ "space.mount" ];
-
-      preStart = ''
-        mkdir -p /space/config/qbittorrent/qBittorrent/config
-
-        # Set download directories if config doesn't exist or needs updating
-        CONFIG_FILE="/space/config/qbittorrent/qBittorrent/config/qBittorrent.conf"
-
-        if [ ! -f "$CONFIG_FILE" ]; then
-          cat > "$CONFIG_FILE" <<EOF
-[Preferences]
-Downloads\\SavePath=/space/downloads/complete
-Downloads\\TempPath=/space/downloads/incomplete
-Downloads\\TempPathEnabled=true
-EOF
-          chown qbittorrent:media "$CONFIG_FILE"
-        fi
-      '';
-    };
+    # Ensure qBittorrent starts after /space is mounted
+    systemd.services.qbittorrent.after = [ "space.mount" ];
+    systemd.services.qbittorrent.requires = [ "space.mount" ];
   };
 }
