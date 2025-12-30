@@ -30,7 +30,12 @@
     };
 
     # Ensure qBittorrent starts after /space is mounted
-    systemd.services.qbittorrent.after = [ "space.mount" ];
-    systemd.services.qbittorrent.requires = [ "space.mount" ];
+    systemd.services.qbittorrent = {
+      after = [ "space.mount" ];
+      requires = [ "space.mount" ];
+
+      # Set umask so created files/dirs are group-writable
+      serviceConfig.UMask = "0002";
+    };
   };
 }
