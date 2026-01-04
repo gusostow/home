@@ -18,7 +18,7 @@
       # Upstream DNS servers
       server = [ "8.8.8.8" "8.8.4.4" ];
 
-      # Local hostnames
+      # Local hostnames (these override /etc/hosts)
       address = [
         "/ultan.home/192.168.0.245"
         "/plex.home/192.168.0.245"
@@ -28,8 +28,8 @@
       # Don't forward .home queries upstream
       local = "/home/";
 
-      # Expand plain hostnames with .home
-      expand-hosts = true;
+      # Don't read /etc/hosts (prevents conflicts with server hostname)
+      no-hosts = true;
 
       # Cache size (default 150)
       cache-size = 1000;
