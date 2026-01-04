@@ -51,6 +51,9 @@
           # WireGuard VPN
           ./modules/wireguard.nix
 
+          # Local DNS
+          ./modules/dnsmasq.nix
+
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
