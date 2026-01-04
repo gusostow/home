@@ -26,6 +26,7 @@
     darwin.libiconv
     ffmpeg
     imagemagick
+    wireguard-tools
     yt-dlp-light
   ];
 
