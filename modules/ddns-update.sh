@@ -1,7 +1,7 @@
 set -euo pipefail
 
 HOSTED_ZONE_ID="Z0419929NHM3F17LIKCL"
-DOMAINS=("plex.foamer.net" "requests.foamer.net")
+DOMAINS=("plex.foamer.net" "requests.foamer.net" "vpn.foamer.net")
 
 # Get current public IP
 CURRENT_IP=$(curl -s ifconfig.me)
