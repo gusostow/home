@@ -27,13 +27,13 @@
 
       # Peers (VPN clients) - add one section per device
       peers = [
-        # Example peer (laptop):
-        # {
-        #   # Client public key - get from client with: wg pubkey < client-private-key
-        #   publicKey = "CLIENT_PUBLIC_KEY_HERE";
-        #   # Allow this client to use the VPN IP and access your home network
-        #   allowedIPs = [ "10.0.0.2/32" ];
-        # }
+        # macbook
+        {
+          # Client public key - get from client with: wg pubkey < client-private-key
+          publicKey = "f5FY+HEulPxfgs1BQkluqqhOJHIkx/WFuiqF1NnUhSs=";
+          # Allow this client to use the VPN IP and access your home network
+          allowedIPs = [ "10.0.0.2/32" ];
+        }
       ];
     };
   };
