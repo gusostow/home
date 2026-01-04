@@ -48,6 +48,9 @@
           # DDNS
           ./modules/ddns.nix
 
+          # WireGuard VPN
+          ./modules/wireguard.nix
+
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
