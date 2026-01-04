@@ -12,7 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "ultan"; # Define your hostname.
+  networking.hostName = "ultan.home"; # Define your hostname.
 
   # Static IP configuration
   networking = {
