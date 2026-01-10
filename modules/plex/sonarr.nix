@@ -14,6 +14,9 @@
     systemd.services.sonarr.after = [ "space.mount" ];
     systemd.services.sonarr.requires = [ "space.mount" ];
 
+    # Set umask so new files/dirs are group-writeable (775 for dirs, 664 for files)
+    systemd.services.sonarr.serviceConfig.UMask = "0002";
+
     # Sonarr runs as its own user, add to media group
     users.users.sonarr.extraGroups = [ "media" ];
   };
