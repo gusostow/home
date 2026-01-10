@@ -7,10 +7,10 @@
 
   programs.home-manager.enable = true;
 
-  # Server-specific packages (if any)
   home.packages = with pkgs; [
     dig
     ethtool
     unixtools.ifconfig
+    unixtools.netstat
   ];
 }
