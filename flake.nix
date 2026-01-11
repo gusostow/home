@@ -51,8 +51,8 @@
           # WireGuard VPN
           ./modules/wireguard.nix
 
-          # Local DNS
-          ./modules/dnsmasq.nix
+          # Pi-hole DNS with ad-blocking
+          ./modules/pihole.nix
 
           # Home-manager integration
           home-manager.nixosModules.home-manager

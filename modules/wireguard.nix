@@ -2,12 +2,14 @@
 
 {
   # WireGuard VPN server for remote access to home network
+  # VPN clients will use Pi-hole for DNS (ad-blocking + local .home domains)
   networking.wireguard.interfaces = {
     wg0 = {
       # WireGuard listens on this UDP port
       listenPort = 51820;
 
       # VPN subnet - clients will get IPs in 10.0.0.0/24
+      # Server IP is 10.0.0.1 (also the DNS server via Pi-hole)
       ips = [ "10.0.0.1/24" ];
 
       # Server private key - generate with: wg genkey
@@ -26,6 +28,7 @@
       '';
 
       # Peers (VPN clients) - add one section per device
+      # Client configs should include: DNS = 10.0.0.1 (to use Pi-hole)
       peers = [
         # macbook
         {
