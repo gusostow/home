@@ -13,11 +13,34 @@
 
     # Ad-blocking lists
     lists = [
+      # Steven Black's unified hosts (base list)
       {
         url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
         type = "block";
         enabled = true;
         description = "Steven Black's unified hosts";
+      }
+      # OISD Big List - comprehensive blocklist
+      {
+        url = "https://big.oisd.nl/domainswild";
+        type = "block";
+        enabled = true;
+        description = "OISD Big List";
+      }
+      # Hagezi's Pro++ List - aggressive ad/tracking blocking
+      # commenting out because may be too aggresive.
+      # {
+      #   url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro.plus.txt";
+      #   type = "block";
+      #   enabled = true;
+      #   description = "Hagezi Pro++";
+      # }
+      # AdGuard DNS filter
+      {
+        url = "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt";
+        type = "block";
+        enabled = true;
+        description = "AdGuard DNS Filter";
       }
     ];
 
