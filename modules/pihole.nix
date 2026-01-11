@@ -1,6 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
+  # Pi-hole web interface
+  services.pihole-web = {
+    enable = true;
+    port = 80;
+  };
+
   # Pi-hole DNS server with ad-blocking
   services.pihole-ftl = {
     enable = true;
@@ -23,6 +29,9 @@
     queryLogDeleter.enable = true;
 
     settings = {
+      # Web API port (matches pihole-web.port)
+      port = 80;
+
       dns = {
         # Local domain for home network
         domain = "home";
