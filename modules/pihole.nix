@@ -4,7 +4,7 @@
   # Pi-hole web interface
   services.pihole-web = {
     enable = true;
-    ports = [ 8080 ];
+    ports = [ 9797 ];
   };
 
   # Pi-hole DNS server with ad-blocking
