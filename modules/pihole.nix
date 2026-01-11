@@ -30,7 +30,7 @@
 
     settings = {
       # Web API port (matches pihole-web.ports)
-      port = 8080;
+      port = 9797;
 
       dns = {
         # Local domain for home network
