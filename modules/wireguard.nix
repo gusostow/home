@@ -36,6 +36,16 @@
           publicKey = "f5FY+HEulPxfgs1BQkluqqhOJHIkx/WFuiqF1NnUhSs=";
           # Allow this client to use the VPN IP and access your home network
           allowedIPs = [ "10.0.0.2/32" ];
+        },
+        # aostow-iphone
+        {
+          publicKey = "+7rQnZFr1kCZcMv+qdDoqhfZGLD0Q9ws5t8f3ZOMEgo=";
+          allowedIPs = [ "10.0.0.3/32" ];
+        },
+        # aostow-iphone-alltraffic
+        {
+          publicKey = "gTcVG6UkVrbB5yXMPZQZRPqraSpL6sVvh+jAmwiVClU=";
+          allowedIPs = [ "10.0.0.4/32" ];
         }
       ];
     };
