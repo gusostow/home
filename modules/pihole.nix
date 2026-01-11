@@ -4,7 +4,7 @@
   # Pi-hole web interface
   services.pihole-web = {
     enable = true;
-    ports = [ 80 ];
+    ports = [ 8080 ];
   };
 
   # Pi-hole DNS server with ad-blocking
@@ -29,8 +29,8 @@
     queryLogDeleter.enable = true;
 
     settings = {
-      # Web API port (matches pihole-web.port)
-      port = 80;
+      # Web API port (matches pihole-web.ports)
+      port = 8080;
 
       dns = {
         # Local domain for home network
