@@ -30,7 +30,7 @@
       # Peers (VPN clients) - add one section per device
       # Client configs should include: DNS = 10.0.0.1 (to use Pi-hole)
       peers = [
-        # macbook
+        # aostow-macbook
         {
           # Client public key - get from client with: wg pubkey < client-private-key
           publicKey = "f5FY+HEulPxfgs1BQkluqqhOJHIkx/WFuiqF1NnUhSs=";
@@ -46,6 +46,11 @@
         {
           publicKey = "gTcVG6UkVrbB5yXMPZQZRPqraSpL6sVvh+jAmwiVClU=";
           allowedIPs = [ "10.0.0.4/32" ];
+        }
+        # aostow-macbook-alltraffic
+        {
+          publicKey = "nJcTov8yO36HiA6ZZQn4JkWP7i0k8ZOTGoLCt9p6xQY=";
+          allowedIPs = [ "10.0.0.5/32" ];
         }
       ];
     };
