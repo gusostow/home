@@ -2,7 +2,7 @@
 
 let
   wireguardClientGenerator = pkgs.writeShellApplication {
-    name = "wg-generate-client";
+    name = "generate-wireguard-client";
     runtimeInputs = with pkgs; [ wireguard-tools ];
     text = builtins.readFile ../scripts/generate-wireguard-client.sh;
   };
