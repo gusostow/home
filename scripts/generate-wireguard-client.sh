@@ -13,10 +13,9 @@ fi
 
 CLIENT_NAME="${1:-}"
 CLIENT_IP="${2:-}"
-SERVER_PUBKEY="${3:-}"
 
 if [ -z "$CLIENT_NAME" ] || [ -z "$CLIENT_IP" ]; then
-  echo "Usage: $0 [--all-traffic] <client-name> <client-ip> [server-pubkey]"
+  echo "Usage: $0 [--all-traffic] <client-name> <client-ip>"
   echo ""
   echo "Examples:"
   echo "  $0 iphone 10.0.0.3                      # Route only home network traffic"
@@ -72,5 +71,3 @@ cat <<EOF
           allowedIPs = [ "$CLIENT_IP/32" ];
         }
 EOF
-echo ""
-echo "then rebuild server"
