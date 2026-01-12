@@ -50,6 +50,7 @@
 
           # WireGuard VPN
           ./modules/wireguard.nix
+          ./modules/wireguard-tools.nix
 
           # Pi-hole DNS with ad-blocking
           ./modules/pihole.nix

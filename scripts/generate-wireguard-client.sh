@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
 # Script to generate WireGuard client configuration for Ultan VPN
 # Usage: ./generate-wireguard-client.sh [--all-traffic] <client-name> <client-ip> [server-pubkey]
 #
