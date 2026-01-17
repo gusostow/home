@@ -6,6 +6,9 @@
   ...
 }:
 
+let
+  configPath = pkgs.writeTextFile config.services.decluttarr.settings;
+in
 {
   options.services.decluttarr = {
     settings = lib.mkOption {
@@ -23,7 +26,7 @@
       createHome = true;
     };
 
-    environment.etc."decluttarr/config.yaml".source = config.services.decluttarr.settings;
+    environment.etc."decluttarr/config.yaml".source = configPath;
 
     systemd.services.decluttarr = {
       description = "Decluttarr - Stop stalled downloads and more";
