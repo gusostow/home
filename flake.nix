@@ -11,6 +11,7 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
@@ -18,33 +19,57 @@
       nixpkgs,
       home-manager,
       pre-commit-hooks,
+      flake-utils,
+      self,
       ...
     }:
     let
-      darwinSystem = "aarch64-darwin";
-      linuxSystem = "x86_64-linux";
+      # Per-system outputs (packages, apps, devShells)
+      perSystemOutputs =
+        flake-utils.lib.eachSystem
+          [
+            "aarch64-darwin"
+            "x86_64-linux"
+          ]
+          (
+            system:
+            let
+              pkgs = import nixpkgs {
+                inherit system;
+                config.allowUnfree = true;
+              };
 
+              preCommitCheck = pre-commit-hooks.lib.${system}.run {
+                src = ./.;
+                hooks = {
+                  nixfmt-rfc-style.enable = true;
+                };
+              };
+            in
+            {
+              packages.decluttarr = pkgs.python3Packages.callPackage ./pkgs/decluttarr { };
+
+              apps.install-hooks = {
+                type = "app";
+                program = toString (
+                  pkgs.writeShellScript "install-hooks" ''
+                    ${preCommitCheck.shellHook}
+                  ''
+                );
+              };
+
+              devShells.default = pkgs.mkShell { buildInputs = [ pkgs.nixfmt-rfc-style ]; };
+            }
+          );
+
+      # System-specific configurations
       darwinPkgs = import nixpkgs {
-        system = darwinSystem;
+        system = "aarch64-darwin";
         config.allowUnfree = true;
       };
-
-      linuxPkgs = import nixpkgs {
-        system = linuxSystem;
-        config.allowUnfree = true;
-      };
-
-      # Pre-commit hooks configuration for each system
-      mkPreCommitCheck =
-        system:
-        pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            nixfmt-rfc-style.enable = true;
-          };
-        };
     in
-    {
+    perSystemOutputs
+    // {
       # macOS laptop (standalone home-manager)
       homeConfigurations."aostow@laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = darwinPkgs;
@@ -60,6 +85,12 @@
       # NixOS server ultan (complete system + home-manager)
       nixosConfigurations.ultan = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+
+        # allows you to pass outputs from this flake into packages that use .callPackage (I think?)
+        specialArgs = {
+          inherit self;
+        };
+
         modules = [
           # Hardware configuration
           ./hosts/ultan-hardware.nix
@@ -100,34 +131,6 @@
             };
           }
         ];
-      };
-
-      # Apps for installing pre-commit hooks
-      apps.${darwinSystem}.install-hooks = {
-        type = "app";
-        program = toString (
-          darwinPkgs.writeShellScript "install-hooks" ''
-            ${(mkPreCommitCheck darwinSystem).shellHook}
-          ''
-        );
-      };
-
-      apps.${linuxSystem}.install-hooks = {
-        type = "app";
-        program = toString (
-          linuxPkgs.writeShellScript "install-hooks" ''
-            ${(mkPreCommitCheck linuxSystem).shellHook}
-          ''
-        );
-      };
-
-      # Development shells
-      devShells.${darwinSystem}.default = darwinPkgs.mkShell {
-        buildInputs = [ darwinPkgs.nixfmt-rfc-style ];
-      };
-
-      devShells.${linuxSystem}.default = linuxPkgs.mkShell {
-        buildInputs = [ linuxPkgs.nixfmt-rfc-style ];
       };
     };
 }
