@@ -9,7 +9,7 @@
 {
   options.services.decluttarr = {
     settings = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "";
       description = "YAML literal to be written to config file";
     };
