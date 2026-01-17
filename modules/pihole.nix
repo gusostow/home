@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Pi-hole web interface
@@ -60,7 +65,10 @@
         domain = "home";
 
         # Upstream DNS servers (Cloudflare)
-        upstreams = [ "1.1.1.1" "1.0.0.1" ];
+        upstreams = [
+          "1.1.1.1"
+          "1.0.0.1"
+        ];
 
         # Listen on LAN and WireGuard interfaces
         # Pi-hole will handle DNS for both local network and VPN clients

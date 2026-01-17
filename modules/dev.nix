@@ -48,7 +48,7 @@
     tldr
     uv
   ];
- 
+
   # Laptop-specific zsh configuration
   programs.zsh = {
     initContent = ''

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # dnsmasq for local DNS resolution
@@ -10,13 +15,19 @@
       domain = "home";
 
       # Listen on LAN and WireGuard interfaces
-      interface = [ "enp34s0" "wg0" ];
+      interface = [
+        "enp34s0"
+        "wg0"
+      ];
 
       # Don't read /etc/resolv.conf
       no-resolv = true;
 
       # Upstream DNS servers
-      server = [ "8.8.8.8" "8.8.4.4" ];
+      server = [
+        "8.8.8.8"
+        "8.8.4.4"
+      ];
 
       # Local hostnames (these override /etc/hosts)
       address = [

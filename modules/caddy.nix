@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   services.caddy = {
@@ -18,7 +23,10 @@
   };
 
   # Open HTTP and HTTPS ports
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   # Caddy needs to resolve local services
   networking.firewall.allowedUDPPorts = [ 53 ];

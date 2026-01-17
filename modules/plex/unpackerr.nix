@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   # Script to generate config with credentials at runtime
@@ -37,7 +42,11 @@ in
     # Unpackerr service with systemd credentials
     systemd.services.unpackerr = {
       description = "Unpackerr - Extracts archives for Sonarr/Radarr";
-      after = [ "network.target" "space.mount" "qbittorrent.service" ];
+      after = [
+        "network.target"
+        "space.mount"
+        "qbittorrent.service"
+      ];
       requires = [ "space.mount" ];
       wantedBy = [ "multi-user.target" ];
 

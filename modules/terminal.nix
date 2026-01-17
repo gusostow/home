@@ -17,22 +17,25 @@
       }
     ];
     initContent = pkgs.lib.mkMerge [
-      (pkgs.lib.mkBefore (''
-        set -o vi
+      (pkgs.lib.mkBefore (
+        ''
+          set -o vi
 
-        bindkey '^E' autosuggest-accept
-        bindkey '^P' up-line-or-history
-        bindkey '^N' down-line-or-history
+          bindkey '^E' autosuggest-accept
+          bindkey '^P' up-line-or-history
+          bindkey '^N' down-line-or-history
 
-        # unbind fzf-cd-widget, set by fzf/shell/key-bindings.sh
-        bindkey -r '\ec'
+          # unbind fzf-cd-widget, set by fzf/shell/key-bindings.sh
+          bindkey -r '\ec'
 
-        export LIBRARY_PATH=~/.nix-profile/lib
+          export LIBRARY_PATH=~/.nix-profile/lib
 
-        if [[ -f $HOME/.config/secrets ]]; then
-            source $HOME/.config/secrets
-        fi
-      '' + builtins.readFile ../sh/utils.sh))
+          if [[ -f $HOME/.config/secrets ]]; then
+              source $HOME/.config/secrets
+          fi
+        ''
+        + builtins.readFile ../sh/utils.sh
+      ))
       (pkgs.lib.mkAfter ''
         # Customize prompt to always show hostname in color (must run after oh-my-zsh theme)
         PROMPT="%{$fg[cyan]%}%m%{$reset_color%} $PROMPT"

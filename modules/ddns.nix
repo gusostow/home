@@ -1,9 +1,18 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   ddnsScript = pkgs.writeShellApplication {
     name = "ddns-update";
-    runtimeInputs = with pkgs; [ awscli2 curl dnsutils ];
+    runtimeInputs = with pkgs; [
+      awscli2
+      curl
+      dnsutils
+    ];
     text = builtins.readFile ./ddns-update.sh;
   };
 in

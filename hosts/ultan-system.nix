@@ -16,17 +16,22 @@
 
   # Static IP configuration
   networking = {
-    networkmanager.enable = false;  # Disable NetworkManager for static config
+    networkmanager.enable = false; # Disable NetworkManager for static config
     useDHCP = false;
     interfaces.enp34s0 = {
       useDHCP = false;
-      ipv4.addresses = [{
-        address = "192.168.0.245";
-        prefixLength = 24;
-      }];
+      ipv4.addresses = [
+        {
+          address = "192.168.0.245";
+          prefixLength = 24;
+        }
+      ];
     };
-    defaultGateway = "192.168.0.1";  # Your router IP
-    nameservers = [ "192.168.0.1" "8.8.8.8" ];
+    defaultGateway = "192.168.0.1"; # Your router IP
+    nameservers = [
+      "192.168.0.1"
+      "8.8.8.8"
+    ];
   };
 
   # Set your time zone.
@@ -96,13 +101,16 @@
   users.users.aostow = {
     isNormalUser = true;
     description = "Augustus";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDFFejeagAt8t4oK1CgY/1jOw5UqHYSybEG2XZts8WNZADIh4tL6OhfG66TTxXNdVTcFhFSQlN5zZ/3C2g/o4X9wc52J11qmmXO/1xN0640oU7+/POW+HWZMsgoQB0GOptNI6gSzoMGayZqmWJYra1RmJYTJfWCAFwhPGLzXrnxCnH6koSqXutqsAstm+MXOgkv1Xle5Ul2ZEO3gx/6OjoYjlf7NX6WDJCL1bF8IpAFbIBvTRAQ07U0i2gmkaaFQFsGUIht6lBdLoBvAWoYOoHOhnv+/LN8/xVeOPuB7BKZfJ02mGnKrKHQWv7tjywe0zTuZVPKCuvaZrozY7yNzGrHGDAMNaaX5WQg+FwDrJJ1kp2ZJk2VdZ+N7zVEeAsQl87JzVlqbQIQvtQt3aFo96n+2ZarWYdCEiPQ0iQxHFJdDiXIoZ5BSWc5bDXREqLazTAWqXaXl71XfHXmgaCrwoa+t6+1YHafhzWOSMo9NjSerTVY2EgcVJMD9hoDKP9xHQs= aostow@Augustuss-Air.nyc.rr.com"
     ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 

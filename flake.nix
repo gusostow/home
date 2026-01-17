@@ -9,14 +9,16 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs =
+    { nixpkgs, home-manager, ... }:
     let
       darwinSystem = "x86_64-darwin";
       darwinPkgs = import nixpkgs {
         system = darwinSystem;
         config.allowUnfree = true;
       };
-    in {
+    in
+    {
       # macOS laptop (standalone home-manager)
       homeConfigurations."aostow@laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = darwinPkgs;
