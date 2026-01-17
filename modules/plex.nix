@@ -47,5 +47,17 @@
 
     # Open Plex port in firewall
     networking.firewall.allowedTCPPorts = [ 32400 ];
+
+    config.services.decluttarr = {
+      settings = ''
+        instances:
+          sonarr:
+            - base_url: "http://localhost:8989":
+              api_key: !ENV SONARR_API_KEY
+          radarr:
+            - base_url: "http://localhost:7878"
+              api_key: !ENV RADARR_API_KEY
+      '';
+    };
   };
 }
