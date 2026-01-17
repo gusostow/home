@@ -7,7 +7,10 @@
 }:
 
 let
-  configPath = pkgs.writeTextFile config.services.decluttarr.settings;
+  configPath = pkgs.writeTextFile {
+    name = "decluttarr.yaml";
+    text = config.services.decluttarr.settings;
+  };
 in
 {
   options.services.decluttarr = {
@@ -26,7 +29,7 @@ in
       createHome = true;
     };
 
-    environment.etc."decluttarr/config.yaml".source = configPath;
+    environment.var."decluttarr/config.yaml".source = configPath;
 
     systemd.services.decluttarr = {
       description = "Decluttarr - Stop stalled downloads and more";
@@ -36,6 +39,7 @@ in
         Type = "simple";
         User = "decluttarr";
         Group = "media";
+        WorkingDirectory = "/var/lib/decluttarr";
         # use flake output from this repo
         ExecStart = ''
           ${pkgs.bash}/bin/bash -c '
