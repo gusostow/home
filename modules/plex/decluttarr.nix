@@ -43,12 +43,9 @@ in
         '';
         # use flake output from this repo
         ExecStart = ''
-          ${pkgs.bash}/bin/bash -c '
-            ${pkgs.coreutils}/bin/env \
-              SONARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/sonarr-key) \
-              RADARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/radarr-key) \
-              ${self.packages.${pkgs.system}.decluttarr}/bin/decluttarr
-          '
+          ${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/env SONARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/sonarr-key) RADARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/radarr-key) ${
+            self.packages.${pkgs.system}.decluttarr
+          }/bin/decluttarr'
         '';
         Restart = "on-failure";
         RestartSec = "10s";
