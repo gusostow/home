@@ -39,7 +39,7 @@ in
         Group = "media";
         WorkingDirectory = "/var/lib/decluttarr";
         ExecStartPre = ''
-          install -m 0640 -o decluttarr -g media ${configPath} /var/lib/decluttarr/config.yaml
+          ${pkgs.coreutils}/bin/install -m 0640 -o decluttarr -g media ${configPath} /var/lib/decluttarr/config.yaml
         '';
         # use flake output from this repo
         ExecStart = ''
