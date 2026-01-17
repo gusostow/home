@@ -48,7 +48,7 @@
     # Open Plex port in firewall
     networking.firewall.allowedTCPPorts = [ 32400 ];
 
-    config.services.decluttarr = {
+    services.decluttarr = {
       settings = ''
         instances:
           sonarr:
