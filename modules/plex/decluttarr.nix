@@ -47,7 +47,7 @@ in
         '';
         # use flake output from this repo
         ExecStart = ''
-          ${self.packages.${system}.decluttarr}/bin/decluttarr'
+          ${self.packages.${system}.decluttarr}/bin/decluttarr
         '';
         Restart = "on-failure";
         RestartSec = "10s";
