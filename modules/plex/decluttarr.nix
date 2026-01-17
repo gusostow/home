@@ -29,8 +29,6 @@ in
       createHome = true;
     };
 
-    environment.var."decluttarr/config.yaml".source = configPath;
-
     systemd.services.decluttarr = {
       description = "Decluttarr - Stop stalled downloads and more";
       after = [ "network.target" ];
@@ -40,6 +38,9 @@ in
         User = "decluttarr";
         Group = "media";
         WorkingDirectory = "/var/lib/decluttarr";
+        ExecStartPre = ''
+          install -m 0640 -o decluttarr -g media ${configPath} /var/lib/decluttarr/config.yaml
+        '';
         # use flake output from this repo
         ExecStart = ''
           ${pkgs.bash}/bin/bash -c '
