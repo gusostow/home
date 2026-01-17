@@ -18,7 +18,7 @@
     systemd.services.decluttarr = {
       description = "Decluttarr - Stop stalled downloads and more";
       after = [ "network.target" ];
-      wantedBay = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "simple";
         User = "decluttarr";
