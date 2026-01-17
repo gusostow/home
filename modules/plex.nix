@@ -57,6 +57,11 @@
           radarr:
             - base_url: "http://localhost:7878"
               api_key: !ENV RADARR_API_KEY
+        download_clients:
+          qbittorrent:
+            - base_url: "http://localhost:8080"
+              username: admin
+              password: !ENV QBITTORRENT_PASSWORD
       '';
     };
   };

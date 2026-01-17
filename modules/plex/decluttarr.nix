@@ -43,7 +43,7 @@ in
         '';
         # use flake output from this repo
         ExecStart = ''
-          ${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/env SONARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/sonarr-key) RADARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/radarr-key) ${
+          ${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/env SONARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/sonarr-key) RADARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/radarr-key) QBITTORRENT_PASSWORD=$(cat $CREDENTIALS_DIRECTORY/qbittorrent-password) ${
             self.packages.${pkgs.system}.decluttarr
           }/bin/decluttarr'
         '';
@@ -52,6 +52,7 @@ in
         LoadCredential = [
           "sonarr-key:/root/secrets/sonarr-api-key"
           "radarr-key:/root/secrets/radarr-api-key"
+          "qbittorrent-password:/root/secrets/qbittorrent-password"
         ];
       };
     };
