@@ -50,6 +50,10 @@
 
     services.decluttarr = {
       settings = ''
+        jobs:
+          remove_failed_downloads:
+          remove_failed_imports:
+          remove_stalled:
         instances:
           sonarr:
             - base_url: "http://localhost:8989"
