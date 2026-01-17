@@ -52,7 +52,7 @@
       settings = ''
         instances:
           sonarr:
-            - base_url: "http://localhost:8989":
+            - base_url: "http://localhost:8989"
               api_key: !ENV SONARR_API_KEY
           radarr:
             - base_url: "http://localhost:7878"
