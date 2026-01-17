@@ -7,16 +7,42 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    {
+      nixpkgs,
+      home-manager,
+      pre-commit-hooks,
+      ...
+    }:
     let
-      darwinSystem = "x86_64-darwin";
+      darwinSystem = "aarch64-darwin";
+      linuxSystem = "x86_64-linux";
+
       darwinPkgs = import nixpkgs {
         system = darwinSystem;
         config.allowUnfree = true;
       };
+
+      linuxPkgs = import nixpkgs {
+        system = linuxSystem;
+        config.allowUnfree = true;
+      };
+
+      # Pre-commit hooks configuration for each system
+      mkPreCommitCheck =
+        system:
+        pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixfmt-rfc-style.enable = true;
+          };
+        };
     in
     {
       # macOS laptop (standalone home-manager)
@@ -74,6 +100,17 @@
             };
           }
         ];
+      };
+
+      # Development shells with pre-commit hooks
+      devShells.${darwinSystem}.default = darwinPkgs.mkShell {
+        inherit (mkPreCommitCheck darwinSystem) shellHook;
+        buildInputs = [ darwinPkgs.nixfmt-rfc-style ];
+      };
+
+      devShells.${linuxSystem}.default = linuxPkgs.mkShell {
+        inherit (mkPreCommitCheck linuxSystem) shellHook;
+        buildInputs = [ linuxPkgs.nixfmt-rfc-style ];
       };
     };
 }
