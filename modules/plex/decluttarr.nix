@@ -3,6 +3,7 @@
   pkgs,
   config,
   self,
+  system,
   ...
 }:
 
@@ -44,7 +45,7 @@ in
         # use flake output from this repo
         ExecStart = ''
           ${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/env SONARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/sonarr-key) RADARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/radarr-key) QBITTORRENT_PASSWORD=$(cat $CREDENTIALS_DIRECTORY/qbittorrent-password) ${
-            self.packages.${pkgs.system}.decluttarr
+            self.packages.${system}.decluttarr
           }/bin/decluttarr'
         '';
         Restart = "on-failure";
