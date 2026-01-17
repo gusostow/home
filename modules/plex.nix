@@ -52,7 +52,7 @@
       settings = ''
         general:
           log_level: VERBOSE
-          timer: 2  # min
+          timer: 1  # min
         jobs:
           remove_failed_downloads:
           remove_failed_imports:
