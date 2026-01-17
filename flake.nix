@@ -102,14 +102,31 @@
         ];
       };
 
-      # Development shells with pre-commit hooks
+      # Apps for installing pre-commit hooks
+      apps.${darwinSystem}.install-hooks = {
+        type = "app";
+        program = toString (
+          darwinPkgs.writeShellScript "install-hooks" ''
+            ${(mkPreCommitCheck darwinSystem).shellHook}
+          ''
+        );
+      };
+
+      apps.${linuxSystem}.install-hooks = {
+        type = "app";
+        program = toString (
+          linuxPkgs.writeShellScript "install-hooks" ''
+            ${(mkPreCommitCheck linuxSystem).shellHook}
+          ''
+        );
+      };
+
+      # Development shells
       devShells.${darwinSystem}.default = darwinPkgs.mkShell {
-        inherit (mkPreCommitCheck darwinSystem) shellHook;
         buildInputs = [ darwinPkgs.nixfmt-rfc-style ];
       };
 
       devShells.${linuxSystem}.default = linuxPkgs.mkShell {
-        inherit (mkPreCommitCheck linuxSystem) shellHook;
         buildInputs = [ linuxPkgs.nixfmt-rfc-style ];
       };
     };
