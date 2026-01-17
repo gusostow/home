@@ -26,6 +26,8 @@
 
     extraPackages = with pkgs; [
       gopls
+      nixd
+      nixfmt-rfc-style
       ruff
       terraform-ls
     ];
@@ -45,6 +47,20 @@
         "terraform.languageServer.path" = "terraform-ls";
         "terraform.languageServer.args" = "serve";
         "terraform.formatOnSave" = true;
+        "languageserver" = {
+          "nix" = {
+            "command" = "nixd";
+            "filetypes" = [ "nix" ];
+          };
+        };
+        "nixd" = {
+          "nixpkgs" = {
+            "expr" = "(builtins.getFlake \"${toString ../.}\").inputs.nixpkgs { }";
+          };
+          "formatting" = {
+            "command" = [ "nixfmt" ];
+          };
+        };
       };
     };
 

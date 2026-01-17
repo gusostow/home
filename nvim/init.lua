@@ -1,3 +1,7 @@
+-- Disable netrw (using fzf instead)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.autoindent = true
