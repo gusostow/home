@@ -39,22 +39,18 @@ in
         User = "decluttarr";
         Group = "media";
         WorkingDirectory = "/var/lib/decluttarr";
+        EnvironmentFile = "/root/secrets/decluttarr.env";
+        # app expects config to be in ./config/config.yaml relative to cwd ... ever heard of
+        # argparse?
         ExecStartPre = ''
           ${pkgs.coreutils}/bin/install -D -m 0640 -o decluttarr -g media ${configPath} /var/lib/decluttarr/config/config.yaml
         '';
         # use flake output from this repo
         ExecStart = ''
-          ${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/env SONARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/sonarr-key) RADARR_API_KEY=$(cat $CREDENTIALS_DIRECTORY/radarr-key) QBITTORRENT_PASSWORD=$(cat $CREDENTIALS_DIRECTORY/qbittorrent-password) ${
-            self.packages.${system}.decluttarr
-          }/bin/decluttarr'
+          ${self.packages.${system}.decluttarr}/bin/decluttarr'
         '';
         Restart = "on-failure";
         RestartSec = "10s";
-        LoadCredential = [
-          "sonarr-key:/root/secrets/sonarr-api-key"
-          "radarr-key:/root/secrets/radarr-api-key"
-          "qbittorrent-password:/root/secrets/qbittorrent-password"
-        ];
       };
     };
   };
