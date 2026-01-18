@@ -135,6 +135,10 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
+              extraSpecialArgs = {
+                inherit self;
+                system = "x86_64-linux";
+              };
               users.aostow = {
                 imports = [
                   ./hosts/ultan.nix
