@@ -30,6 +30,8 @@ in
       createHome = true;
     };
 
+    age.secrets."decluttarr-env".file = ../../secrets/decluttarr.env.age;
+
     systemd.services.decluttarr = {
       description = "Decluttarr - Stop stalled downloads and more";
       after = [ "network.target" ];
@@ -39,7 +41,8 @@ in
         User = "decluttarr";
         Group = "media";
         WorkingDirectory = "/var/lib/decluttarr";
-        EnvironmentFile = "/root/secrets/decluttarr.env";
+        # automatically decrypt the secret using Ultan private key
+        EnvironmentFile = config.age.secrets."decluttarr-env".path;
         # app expects config to be in ./config/config.yaml relative to cwd ... ever heard of
         # argparse?
         ExecStartPre = ''
