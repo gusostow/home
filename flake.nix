@@ -7,6 +7,12 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,6 +23,7 @@
   outputs =
     {
       nixpkgs,
+      agenix,
       home-manager,
       pre-commit-hooks,
       flake-utils,
@@ -74,6 +81,11 @@
       homeConfigurations."aostow@laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = darwinPkgs;
 
+        extraSpecialArgs = {
+          inherit self;
+          system = "aarch64-darwin";
+        };
+
         modules = [
           ./hosts/laptop.nix
           ./modules/terminal.nix
@@ -93,6 +105,8 @@
         };
 
         modules = [
+          agenix.nixosModules.default
+
           # Hardware configuration
           ./hosts/ultan-hardware.nix
 

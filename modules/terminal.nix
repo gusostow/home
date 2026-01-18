@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  pkgs,
+  self,
+  system,
+  ...
+}:
 
 {
   programs.zsh = {
@@ -114,6 +119,7 @@
 
   # Core CLI tools for terminal work
   home.packages = with pkgs; [
+    self.inputs.agenix.packages.${system}.default
     bat
     coreutils
     curl
