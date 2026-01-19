@@ -134,6 +134,19 @@
     "configurable-impure-env"
   ];
 
+  # Add registry alias for home config repo
+  nix.registry.home = {
+    from = {
+      id = "home";
+      type = "indirect";
+    };
+    to = {
+      owner = "gusostow";
+      repo = "home";
+      type = "github";
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [

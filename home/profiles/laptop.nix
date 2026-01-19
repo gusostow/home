@@ -18,6 +18,16 @@
       ];
       max-jobs = "auto";
     };
+    registry.home = {
+      from = {
+        id = "home";
+        type = "indirect";
+      };
+      to = {
+        path = "/Users/aostow/dev/home";
+        type = "path";
+      };
+    };
   };
 
   # Laptop-specific packages (GUI apps, macOS-specific, personal tools)
