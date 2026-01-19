@@ -28,7 +28,7 @@ in
       createHome = true;
     };
 
-    age.secrets."decluttarr-env".file = ../../secrets/decluttarr.env.age;
+    age.secrets."decluttarr-env".file = ../../../secrets/decluttarr.env.age;
 
     systemd.services.decluttarr = {
       description = "Decluttarr - Stop stalled downloads and more";

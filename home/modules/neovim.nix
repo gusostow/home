@@ -56,7 +56,7 @@
         };
         "nixd" = {
           "nixpkgs" = {
-            "expr" = "(builtins.getFlake \"${toString ../.}\").inputs.nixpkgs { }";
+            "expr" = "(builtins.getFlake \"${toString ../../.}\").inputs.nixpkgs { }";
           };
           "formatting" = {
             "command" = [ "nixfmt" ];
@@ -65,6 +65,6 @@
       };
     };
 
-    extraLuaConfig = builtins.readFile ../nvim/coc.lua + builtins.readFile ../nvim/init.lua;
+    extraLuaConfig = builtins.readFile ../../nvim/coc.lua + builtins.readFile ../../nvim/init.lua;
   };
 }

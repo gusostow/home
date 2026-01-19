@@ -90,10 +90,10 @@
         };
 
         modules = [
-          ./hosts/laptop.nix
-          ./modules/terminal.nix
-          ./modules/dev.nix
-          ./modules/neovim.nix
+          ./home/profiles/laptop.nix
+          ./home/modules/terminal.nix
+          ./home/modules/dev.nix
+          ./home/modules/neovim.nix
         ];
       };
 
@@ -112,20 +112,20 @@
         modules = [
           agenix.nixosModules.default
           # Hardware configuration
-          ./hosts/ultan-hardware.nix
+          ./nixos/hosts/ultan-hardware.nix
           # System configuration
-          ./hosts/ultan-system.nix
+          ./nixos/hosts/ultan.nix
           # Media stack
-          ./modules/plex.nix
+          ./nixos/modules/plex.nix
           # Reverse proxy
-          ./modules/caddy.nix
+          ./nixos/modules/caddy.nix
           # DDNS
-          ./modules/ddns.nix
+          ./nixos/modules/ddns.nix
           # WireGuard VPN
-          ./modules/wireguard.nix
-          ./modules/wireguard-tools.nix
+          ./nixos/modules/wireguard.nix
+          ./nixos/modules/wireguard-tools.nix
           # Pi-hole DNS with ad-blocking
-          ./modules/pihole.nix
+          ./nixos/modules/pihole.nix
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
@@ -138,10 +138,10 @@
               };
               users.aostow = {
                 imports = [
-                  ./hosts/ultan.nix
-                  ./modules/terminal.nix
-                  ./modules/neovim.nix
-                  # Add ./modules/dev.nix if you want dev tools on server
+                  ./home/profiles/ultan.nix
+                  ./home/modules/terminal.nix
+                  ./home/modules/neovim.nix
+                  # Add ./home/modules/dev.nix if you want dev tools on server
                 ];
               };
             };

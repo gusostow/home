@@ -39,7 +39,7 @@
               source $HOME/.config/secrets
           fi
         ''
-        + builtins.readFile ../sh/utils.sh
+        + builtins.readFile ../../sh/utils.sh
       ))
       (pkgs.lib.mkAfter ''
         # Customize prompt to always show hostname in color (must run after oh-my-zsh theme)
@@ -82,7 +82,7 @@
     escapeTime = 10;
     historyLimit = 5000;
     terminal = "xterm-256color";
-    extraConfig = builtins.readFile ../tmux/.tmux.conf;
+    extraConfig = builtins.readFile ../../tmux/.tmux.conf;
   };
 
   programs.git = {
