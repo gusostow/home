@@ -34,10 +34,6 @@
           bindkey -r '\ec'
 
           export LIBRARY_PATH=~/.nix-profile/lib
-
-          if [[ -f $HOME/.config/secrets ]]; then
-              source $HOME/.config/secrets
-          fi
         ''
         + builtins.readFile ../../sh/utils.sh
       ))
