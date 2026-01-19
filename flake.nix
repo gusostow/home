@@ -40,7 +40,7 @@
         config.allowUnfree = true;
         overlays = [
           (self: super: {
-            decluttarr = self.callPackage ./pkgs/decluttarr { };
+            decluttarr = self.python3Packages.callPackage ./pkgs/decluttarr { };
           })
         ];
       };
