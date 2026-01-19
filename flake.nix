@@ -38,6 +38,11 @@
       linuxPkgs = import nixpkgs {
         system = "x86_64-linux";
         config.allowUnfree = true;
+        overlays = [
+          (self: super: {
+            decluttarr = self.callPackage ./pkgs/decluttarr { };
+          })
+        ];
       };
       lookupPkgs = {
         "aarch64-darwin" = darwinPkgs;
@@ -62,8 +67,6 @@
               };
             in
             {
-              packages.decluttarr = pkgs.python3Packages.callPackage ./pkgs/decluttarr { };
-
               apps.install-hooks = {
                 type = "app";
                 program = toString (

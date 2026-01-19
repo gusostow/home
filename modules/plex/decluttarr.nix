@@ -2,8 +2,6 @@
   lib,
   pkgs,
   config,
-  self,
-  system,
   ...
 }:
 
@@ -48,9 +46,9 @@ in
         ExecStartPre = ''
           ${pkgs.coreutils}/bin/install -D -m 0640 -o decluttarr -g media ${configPath} /var/lib/decluttarr/config/config.yaml
         '';
-        # use flake output from this repo
+        # use custom built pkg overlayed into nixpkgs
         ExecStart = ''
-          ${self.packages.${system}.decluttarr}/bin/decluttarr
+          ${pkgs.decluttarr}/bin/decluttarr
         '';
         Restart = "on-failure";
         RestartSec = "10s";
