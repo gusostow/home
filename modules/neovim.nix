@@ -21,6 +21,7 @@
       harpoon
       oceanic-next
       vim-fugitive
+      vim-gitgutter
       vim-nix
     ];
 
