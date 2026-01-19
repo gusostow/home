@@ -41,6 +41,7 @@
     sqlite
 
     # dev utilities
+    claude-code
     nixfmt-rfc-style
     pandoc
     platformio
@@ -51,9 +52,6 @@
 
   # Laptop-specific zsh configuration
   programs.zsh = {
-    initContent = ''
-      export PATH=$PATH:~/.npm-global/bin
-    '';
     sessionVariables = {
       PYTHONBREAKPOINT = "ipdb.set_trace";
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
