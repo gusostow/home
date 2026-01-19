@@ -45,5 +45,9 @@
     initContent = ''
       export AWS_PROFILE=admin
     '';
+    shellAliases = {
+      # "home" alias is defined in Nix flake registry
+      "nix-switch" = "home-manager switch --flake home#aostow@laptop";
+    };
   };
 }

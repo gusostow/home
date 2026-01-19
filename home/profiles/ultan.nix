@@ -13,4 +13,11 @@
     unixtools.ifconfig
     unixtools.netstat
   ];
+
+  programs.zsh = {
+    shellAliases = {
+      # "home" alias is defined in Nix flake registry
+      "nix-switch" = "sudo nixos-rebuild switch --flake home#ultan";
+    };
+  };
 }
