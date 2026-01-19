@@ -120,9 +120,6 @@
   # Enable zsh system-wide
   programs.zsh.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Enable flakes and new nix commands system-wide
   nix.settings.experimental-features = [
     "nix-command"
