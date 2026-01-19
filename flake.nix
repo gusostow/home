@@ -63,6 +63,13 @@
                 src = ./.;
                 hooks = {
                   nixfmt-rfc-style.enable = true;
+                  flake-check = {
+                    enable = true;
+                    name = "flake-check";
+                    entry = "${pkgs.nixVersions.latest}/bin/nix flake check";
+                    files = "\\.(nix)$";
+                    pass_filenames = false;
+                  };
                 };
               };
             in
