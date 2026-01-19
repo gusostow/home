@@ -64,8 +64,6 @@
                   ''
                 );
               };
-
-              devShells.default = pkgs.mkShell { buildInputs = [ pkgs.nixfmt-rfc-style ]; };
             }
           );
 
