@@ -70,6 +70,12 @@
 
   # Enable sound with pipewire.
   security.rtkit.enable = true;
+
+  # Increase sudo timeout to 30 minutes
+  security.sudo.extraConfig = ''
+    Defaults timestamp_timeout=30
+  '';
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
