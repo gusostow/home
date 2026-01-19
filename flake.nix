@@ -31,6 +31,18 @@
       ...
     }:
     let
+      darwinPkgs = import nixpkgs {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+      };
+      linuxPkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      lookupPkgs = {
+        "aarch64-darwin" = darwinPkgs;
+        "x86_64-linux" = linuxPkgs;
+      };
       # Per-system outputs (packages, apps, devShells)
       perSystemOutputs =
         flake-utils.lib.eachSystem
@@ -41,11 +53,7 @@
           (
             system:
             let
-              pkgs = import nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
-              };
-
+              pkgs = lookupPkgs.${system};
               preCommitCheck = pre-commit-hooks.lib.${system}.run {
                 src = ./.;
                 hooks = {
@@ -66,12 +74,6 @@
               };
             }
           );
-
-      # System-specific configurations
-      darwinPkgs = import nixpkgs {
-        system = "aarch64-darwin";
-        config.allowUnfree = true;
-      };
     in
     perSystemOutputs
     // {
