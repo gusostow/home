@@ -101,8 +101,6 @@
     enableZshIntegration = true;
   };
 
-  programs.autojump.enable = true;
-
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
