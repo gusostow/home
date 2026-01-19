@@ -111,29 +111,21 @@
 
         modules = [
           agenix.nixosModules.default
-
           # Hardware configuration
           ./hosts/ultan-hardware.nix
-
           # System configuration
           ./hosts/ultan-system.nix
-
           # Media stack
           ./modules/plex.nix
-
           # Reverse proxy
           ./modules/caddy.nix
-
           # DDNS
           ./modules/ddns.nix
-
           # WireGuard VPN
           ./modules/wireguard.nix
           ./modules/wireguard-tools.nix
-
           # Pi-hole DNS with ad-blocking
           ./modules/pihole.nix
-
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
