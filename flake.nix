@@ -101,6 +101,8 @@
       nixosConfigurations.ultan = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
+        pkgs = linuxPkgs;
+
         # allows you to pass outputs from this flake into packages that use .callPackage (I think?)
         specialArgs = {
           inherit self;
