@@ -6,6 +6,8 @@
 }:
 
 {
+  age.secrets.ultan-wg-key.file = ../../secrets/ultan-wg-key.age;
+
   # WireGuard VPN server for remote access to home network
   # VPN clients will use Pi-hole for DNS (ad-blocking + local .home domains)
   networking.wireguard.interfaces = {
@@ -17,9 +19,9 @@
       # Server IP is 10.0.0.1 (also the DNS server via Pi-hole)
       ips = [ "10.0.0.1/24" ];
 
-      # Server private key - generate with: wg genkey
-      # Store in /root/secrets/wireguard-private-key
-      privateKeyFile = "/root/secrets/wireguard-private-key";
+      # Server private key - generated with: wg genkey, then decrypted at system build time by
+      # agenix.
+      privateKeyFile = config.age.secrets.ultan-wg-key.path;
 
       # Enable IP forwarding for VPN clients
       postSetup = ''
