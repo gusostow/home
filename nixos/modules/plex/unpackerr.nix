@@ -39,8 +39,16 @@ in
       createHome = true;
     };
 
-    age.secrets.sonarr-api-key.file = ../../../secrets/sonarr-api-key.age;
-    age.secrets.radarr-api-key.file = ../../../secrets/radarr-api-key.age;
+    age.secrets.sonarr-api-key = {
+      file = ../../../secrets/sonarr-api-key.age;
+      mode = "440";
+      group = "media";
+    };
+    age.secrets.radarr-api-key = {
+      file = ../../../secrets/radarr-api-key.age;
+      mode = "440";
+      group = "media";
+    };
 
     # Unpackerr service with systemd credentials
     systemd.services.unpackerr = {
