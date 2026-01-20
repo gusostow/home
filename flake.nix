@@ -118,13 +118,13 @@
 
         modules = [
           agenix.nixosModules.default
-          # Hardware configuration
+          # hardware configuration
           ./nixos/hosts/ultan-hardware.nix
-          # System configuration
+          # system configuration
           ./nixos/hosts/ultan.nix
-          # Media stack
+          # media stack
           ./nixos/modules/plex.nix
-          # Reverse proxy
+          # reverse proxy
           ./nixos/modules/caddy.nix
           # DDNS
           ./nixos/modules/ddns.nix
@@ -148,7 +148,6 @@
                   ./home/profiles/ultan.nix
                   ./home/modules/terminal.nix
                   ./home/modules/neovim.nix
-                  # Add ./home/modules/dev.nix if you want dev tools on server
                 ];
               };
             };
