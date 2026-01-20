@@ -17,6 +17,8 @@ let
   };
 in
 {
+  age.secrets.ddns-aws-creds.file = ../../secrets/ddns-aws-creds.age;
+
   # DDNS updater for Route53
   systemd.services.ddns-update = {
     description = "Update Route53 DNS records with current public IP";
@@ -25,8 +27,9 @@ in
       ExecStart = "${ddnsScript}/bin/ddns-update";
     };
     environment = {
-      # Use ddclient profile from /root/.aws/credentials
+      # ddclient profile in decrypted AWS credentials
       AWS_PROFILE = "ddclient";
+      AWS_CONFIG_FILE = config.age.secrets.ddns-aws-creds.path;
     };
   };
 

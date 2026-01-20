@@ -9,5 +9,6 @@ in
   "decluttarr.env.age".publicKeys = all;
   "radarr-api-key.age".publicKeys = all;
   "sonarr-api-key.age".publicKeys = all;
+  "ddns-aws-creds.age".publicKeys = [ systemUltan ];
   "ultan-wg-key.age".publicKeys = [ systemUltan ];
 }
