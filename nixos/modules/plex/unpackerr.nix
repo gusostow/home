@@ -6,21 +6,21 @@
 }:
 
 let
-  # Script to generate config with credentials at runtime
+  # Script to generate config with credentials path at runtime
   configScript = pkgs.writeShellScript "unpackerr-config" ''
     cat > /tmp/unpackerr-runtime.conf <<EOF
     interval = "2m"
 
     [[sonarr]]
     url = "http://localhost:8989"
-    api_key = "$(cat $CREDENTIALS_DIRECTORY/sonarr-key)"
+    api_key = "filepath:${config.age.secrets.sonarr-api-key.path}"
     paths = ["/space/downloads/complete"]
     protocols = "torrent"
     delete_orig = false
 
     [[radarr]]
     url = "http://localhost:7878"
-    api_key = "$(cat $CREDENTIALS_DIRECTORY/radarr-key)"
+    api_key = "filepath:${config.age.secrets.radarr-api-key.path}"
     paths = ["/space/downloads/complete"]
     protocols = "torrent"
     delete_orig = false
@@ -38,6 +38,9 @@ in
       home = "/var/lib/unpackerr";
       createHome = true;
     };
+
+    age.secrets.sonarr-api-key.file = ../../../secrets/sonarr-api-key.age;
+    age.secrets.radarr-api-key.file = ../../../secrets/radarr-api-key.age;
 
     # Unpackerr service with systemd credentials
     systemd.services.unpackerr = {
@@ -57,12 +60,6 @@ in
         ExecStart = configScript;
         Restart = "on-failure";
         RestartSec = "10s";
-
-        # Load API keys from files on the server (not in git)
-        LoadCredential = [
-          "sonarr-key:/root/secrets/sonarr-api-key"
-          "radarr-key:/root/secrets/radarr-api-key"
-        ];
       };
     };
   };

@@ -30,7 +30,8 @@ nix run .#install-hooks
 1. Register which public keys can decrypt secret in `./secrets/secrets.nix`
 2. Create the encrypted secret interactively.
 ```sh
-$ agenix -e ./secrets/foo.age
+$ cd ./secrets
+$ agenix -e foo.age
 ```
 3. Use the secret by setting,
 ```nix

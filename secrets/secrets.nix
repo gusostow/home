@@ -7,4 +7,6 @@ let
 in
 {
   "decluttarr.env.age".publicKeys = all;
+  "radarr-api-key.age".publicKeys = all;
+  "sonarr-api-key.age".publicKeys = all;
 }
