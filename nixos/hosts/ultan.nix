@@ -185,11 +185,12 @@
     '';
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # Firewall configuration using nftables
+  networking.nftables.enable = true;
+  networking.firewall.extraInputRules = ''
+    # Block suspicious traffic from Brazilian ISP (GA Telecom)
+    ip saddr 189.126.4.0/22 drop
+  '';
 
   # Mount 2TB SATA SSD
   fileSystems."/space" = {
