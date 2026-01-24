@@ -151,6 +151,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     amdgpu_top
+    dig
+    ethtool
+    unixtools.netstat
+    inetutils
+    unixtools.ifconfig
     pciutils
     radeontop
     tcpdump

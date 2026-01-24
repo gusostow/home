@@ -7,12 +7,8 @@
 
   programs.home-manager.enable = true;
 
-  home.packages = with pkgs; [
-    dig
-    ethtool
-    unixtools.ifconfig
-    unixtools.netstat
-  ];
+  # most server-specific packages are installed at host level in nixos/hosts/ultan.nix.
+  home.packages = with pkgs; [ ];
 
   programs.zsh = {
     initContent = ''
