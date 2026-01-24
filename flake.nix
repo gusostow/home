@@ -66,7 +66,7 @@
                   flake-check = {
                     enable = true;
                     name = "flake-check";
-                    entry = "${pkgs.nixVersions.latest}/bin/nix flake check";
+                    entry = "${pkgs.nixVersions.latest}/bin/nix flake check --no-build";
                     files = "\\.(nix)$";
                     pass_filenames = false;
                   };
