@@ -44,6 +44,10 @@
   programs.zsh = {
     initContent = ''
       export AWS_PROFILE=admin
+
+      function po {
+        ps -o user,state,pid,pgid,ppid,%cpu,%mem,rss,start,command "$@"
+      }
     '';
     shellAliases = {
       # "home" alias is defined in Nix flake registry
