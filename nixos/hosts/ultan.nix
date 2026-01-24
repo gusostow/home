@@ -154,7 +154,6 @@
     dig
     ethtool
     unixtools.netstat
-    inetutils
     unixtools.ifconfig
     pciutils
     radeontop

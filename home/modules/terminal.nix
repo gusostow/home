@@ -121,6 +121,7 @@
     fx
     helix
     htop
+    inetutils
     jq
     ripgrep
     tldr
