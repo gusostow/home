@@ -87,22 +87,18 @@
       dhcp = {
         active = false;
       };
+
+      # Custom local DNS entries for .home domains
+      misc.dnsmasq_lines = [
+        "address=/ultan.home/192.168.0.245"
+        "address=/prowlarr.home/192.168.0.245"
+        "address=/sonarr.home/192.168.0.245"
+        "address=/radarr.home/192.168.0.245"
+        "address=/qbittorrent.home/192.168.0.245"
+        "local=/home/"
+      ];
     };
   };
-
-  # Custom local DNS entries for .home domains
-  # Pi-hole uses dnsmasq internally, so we can add custom dnsmasq config
-  environment.etc."dnsmasq.d/custom-hosts.conf".text = ''
-    # Local hostnames
-    address=/ultan.home/192.168.0.245
-    address=/prowlarr.home/192.168.0.245
-    address=/sonarr.home/192.168.0.245
-    address=/radarr.home/192.168.0.245
-    address=/qbittorrent.home/192.168.0.245
-
-    # Don't forward .home queries upstream
-    local=/home/
-  '';
 
   # Disable standalone dnsmasq (Pi-hole uses its own)
   services.dnsmasq.enable = lib.mkForce false;
