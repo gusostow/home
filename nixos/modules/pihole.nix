@@ -95,8 +95,10 @@
   environment.etc."dnsmasq.d/custom-hosts.conf".text = ''
     # Local hostnames
     address=/ultan.home/192.168.0.245
-    address=/plex.home/192.168.0.245
-    address=/requests.home/192.168.0.245
+    address=/prowlarr.home/192.168.0.245
+    address=/sonarr.home/192.168.0.245
+    address=/radarr.home/192.168.0.245
+    address=/qbittorrent.home/192.168.0.245
 
     # Don't forward .home queries upstream
     local=/home/
