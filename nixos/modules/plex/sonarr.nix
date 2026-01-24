@@ -10,7 +10,7 @@
     # Sonarr TV show automation
     services.sonarr = {
       enable = true;
-      openFirewall = true;
+      openFirewall = false;
       dataDir = "/space/config/sonarr";
       group = "media";
     };

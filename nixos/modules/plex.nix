@@ -45,9 +45,6 @@
       "d /space/config 0775 root media -"
     ];
 
-    # Open Plex port in firewall
-    networking.firewall.allowedTCPPorts = [ 32400 ];
-
     services.decluttarr = {
       settings = ''
         general:

@@ -10,7 +10,7 @@
     # Radarr movie automation
     services.radarr = {
       enable = true;
-      openFirewall = true;
+      openFirewall = false;
       dataDir = "/space/config/radarr";
       group = "media";
     };

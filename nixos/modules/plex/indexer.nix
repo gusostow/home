@@ -10,7 +10,7 @@
     # Prowlarr indexer manager
     services.prowlarr = {
       enable = true;
-      openFirewall = true;
+      openFirewall = false;
     };
 
     # Ensure Prowlarr starts after /space is mounted
