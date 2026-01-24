@@ -40,11 +40,13 @@
     yt-dlp-light
   ];
 
+  home.sessionVariables = {
+    AWS_PROFILE = "admin";
+  };
+
   # Laptop-specific zsh configuration
   programs.zsh = {
     initContent = ''
-      export AWS_PROFILE=admin
-
       function po {
         ps -o user,state,pid,pgid,ppid,%cpu,%mem,rss,start,command "$@"
       }
