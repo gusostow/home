@@ -153,6 +153,7 @@
     amdgpu_top
     pciutils
     radeontop
+    tcpdump
     vim
     wget
   ];
