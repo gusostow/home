@@ -123,6 +123,7 @@
     htop
     jq
     ripgrep
+    tldr
     tree
     wget
   ];
