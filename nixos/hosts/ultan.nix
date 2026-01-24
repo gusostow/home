@@ -187,10 +187,16 @@
 
   # Firewall configuration using nftables
   networking.nftables.enable = true;
-  networking.firewall.extraInputRules = ''
-    # Block suspicious traffic from Brazilian ISP (GA Telecom)
-    ip saddr 189.126.4.0/22 drop
-  '';
+  networking.nftables.tables.block-ips = {
+    family = "inet";
+    content = ''
+      chain prerouting {
+        type filter hook prerouting priority raw;
+        # Block suspicious traffic from Brazilian ISP (GA Telecom)
+        ip saddr 189.126.4.0/22 drop
+      }
+    '';
+  };
 
   # Mount 2TB SATA SSD
   fileSystems."/space" = {
