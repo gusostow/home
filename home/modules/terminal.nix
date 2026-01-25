@@ -124,6 +124,7 @@
     inetutils
     jq
     ripgrep
+    step-cli
     tldr
     tree
     wget
