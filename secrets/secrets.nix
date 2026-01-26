@@ -11,4 +11,5 @@ in
   "sonarr-api-key.age".publicKeys = all;
   "ddns-aws-creds.age".publicKeys = [ systemUltan ];
   "ultan-wg-key.age".publicKeys = [ systemUltan ];
+  "intermediate-ca-key.age".publicKeys = [ systemUltan ];
 }

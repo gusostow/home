@@ -133,6 +133,8 @@
           ./nixos/modules/wireguard-tools.nix
           # Pi-hole DNS with ad-blocking
           ./nixos/modules/pihole.nix
+          # PKI
+          ./nixos/modules/ca.nix
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {
