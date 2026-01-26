@@ -21,6 +21,11 @@
       '';
     };
     # internal domains (http:// prefix disables automatic HTTPS)
+    virtualHosts."http://ca.home" = {
+      extraConfig = ''
+        reverse_proxy localhost:8443:
+      '';
+    };
     virtualHosts."http://prowlarr.home" = {
       extraConfig = ''
         reverse_proxy localhost:9696

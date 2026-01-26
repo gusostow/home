@@ -91,6 +91,7 @@
       # Custom local DNS entries for .home domains
       misc.dnsmasq_lines = [
         "address=/ultan.home/192.168.0.245"
+        "address=/ca.home/192.168.0.245"
         "address=/prowlarr.home/192.168.0.245"
         "address=/sonarr.home/192.168.0.245"
         "address=/radarr.home/192.168.0.245"
