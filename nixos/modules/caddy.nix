@@ -9,7 +9,7 @@
   services.caddy = {
     enable = true;
 
-    # external domains
+    # external domains (use Let's Encrypt)
     virtualHosts."plex.foamer.net" = {
       extraConfig = ''
         reverse_proxy localhost:32400
@@ -20,12 +20,8 @@
         reverse_proxy localhost:5055
       '';
     };
-    # internal domains (http:// prefix disables automatic HTTPS)
-    virtualHosts."http://ca.home" = {
-      extraConfig = ''
-        reverse_proxy localhost:8443:
-      '';
-    };
+
+    # internal domains (use step-ca via ACME)
     virtualHosts."http://prowlarr.home" = {
       extraConfig = ''
         reverse_proxy localhost:9696
@@ -46,8 +42,12 @@
         reverse_proxy localhost:8080
       '';
     };
-    virtualHosts."http://pi-hole.home" = {
+    virtualHosts."pi-hole.home" = {
       extraConfig = ''
+        tls {
+          ca https://localhost:8443/acme/acme/directory
+          ca_root ${../modules/ca/root/ca.crt}
+        }
         reverse_proxy localhost:9797
       '';
     };
