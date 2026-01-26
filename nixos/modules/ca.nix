@@ -38,6 +38,12 @@
         {
           type = "ACME";
           name = "acme";
+          claims = {
+            minTLSCertDuration = "1h";
+            maxTLSCertDuration = "720h";
+            defaultTLSCertDuration = "24h";
+          };
+          policy.x509.allow.dns = [ "*.home" ];
         }
       ];
     };
