@@ -95,6 +95,7 @@
         "address=/sonarr.home/192.168.0.245"
         "address=/radarr.home/192.168.0.245"
         "address=/qbittorrent.home/192.168.0.245"
+        "address=/pi-hole.home/192.168.0.245"
         "local=/home/"
       ];
     };

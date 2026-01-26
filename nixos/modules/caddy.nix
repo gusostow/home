@@ -41,6 +41,11 @@
         reverse_proxy localhost:8080
       '';
     };
+    virtualHosts."http://pi-hole.home" = {
+      extraConfig = ''
+        reverse_proxy localhost:9797
+      '';
+    };
   };
 
   # Open HTTP and HTTPS ports
