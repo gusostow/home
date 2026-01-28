@@ -29,7 +29,9 @@
     };
     defaultGateway = "192.168.0.1"; # Your router IP
     nameservers = [
-      "192.168.0.1"
+      # pi-hole running on same host
+      "127.0.0.1"
+      # fallback
       "8.8.8.8"
     ];
   };
