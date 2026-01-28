@@ -35,7 +35,7 @@
       };
 
       db = {
-        type = "badgerv2";
+        type = "badgerV2";
         dataSource = "/var/lib/step-ca/db";
       };
 
