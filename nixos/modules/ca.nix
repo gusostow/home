@@ -29,7 +29,10 @@
         "localhost"
       ];
 
-      logger.format = "text";
+      logger = {
+        format = "text";
+        level = "debug";
+      };
 
       db = {
         type = "badgerv2";
