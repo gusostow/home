@@ -5,52 +5,35 @@
   ...
 }:
 
+let
+  internalTls = ''
+    tls {
+      ca https://localhost:8443/acme/acme/directory
+      ca_root ${./ca/root/ca.crt}
+    }
+  '';
+
+  mkInternalHost = port: {
+    extraConfig = ''
+      ${internalTls}
+      reverse_proxy localhost:${toString port}
+    '';
+  };
+in
 {
   services.caddy = {
     enable = true;
 
     # external domains (use Let's Encrypt)
-    virtualHosts."plex.foamer.net" = {
-      extraConfig = ''
-        reverse_proxy localhost:32400
-      '';
-    };
-    virtualHosts."requests.foamer.net" = {
-      extraConfig = ''
-        reverse_proxy localhost:5055
-      '';
-    };
+    virtualHosts."plex.foamer.net".extraConfig = "reverse_proxy localhost:32400";
+    virtualHosts."requests.foamer.net".extraConfig = "reverse_proxy localhost:5055";
 
     # internal domains (use step-ca via ACME)
-    virtualHosts."http://prowlarr.home" = {
-      extraConfig = ''
-        reverse_proxy localhost:9696
-      '';
-    };
-    virtualHosts."http://sonarr.home" = {
-      extraConfig = ''
-        reverse_proxy localhost:8989
-      '';
-    };
-    virtualHosts."http://radarr.home" = {
-      extraConfig = ''
-        reverse_proxy localhost:7878
-      '';
-    };
-    virtualHosts."http://qbittorrent.home" = {
-      extraConfig = ''
-        reverse_proxy localhost:8080
-      '';
-    };
-    virtualHosts."pi-hole.home" = {
-      extraConfig = ''
-        tls {
-          ca https://localhost:8443/acme/acme/directory
-          ca_root ${../modules/ca/root/ca.crt}
-        }
-        reverse_proxy localhost:9797
-      '';
-    };
+    virtualHosts."prowlarr.home" = mkInternalHost 9696;
+    virtualHosts."sonarr.home" = mkInternalHost 8989;
+    virtualHosts."radarr.home" = mkInternalHost 7878;
+    virtualHosts."qbittorrent.home" = mkInternalHost 8080;
+    virtualHosts."pi-hole.home" = mkInternalHost 9797;
   };
 
   # Open HTTP and HTTPS ports
