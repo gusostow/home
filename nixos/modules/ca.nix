@@ -3,6 +3,9 @@
 {
   environment.systemPackages = with pkgs; [ step-ca ];
 
+  # trust the internal CA system-wide
+  security.pki.certificateFiles = [ ./ca/root/ca.crt ];
+
   age.secrets.intermediate-ca-key = {
     file = ../../secrets/intermediate-ca-key.age;
     mode = "440";
