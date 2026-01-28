@@ -28,6 +28,12 @@ in
     virtualHosts."plex.foamer.net".extraConfig = "reverse_proxy localhost:32400";
     virtualHosts."requests.foamer.net".extraConfig = "reverse_proxy localhost:5055";
 
+    # serve root CA cert over HTTP for device installation
+    virtualHosts."http://ca.home".extraConfig = ''
+      root * ${./ca/root}
+      file_server
+    '';
+
     # internal domains (use step-ca via ACME)
     virtualHosts."prowlarr.home" = mkInternalHost 9696;
     virtualHosts."sonarr.home" = mkInternalHost 8989;
