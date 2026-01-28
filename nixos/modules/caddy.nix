@@ -31,6 +31,7 @@ in
     # serve root CA cert over HTTP for device installation
     virtualHosts."http://ca.home".extraConfig = ''
       root * ${./ca/root}
+      header Content-Type application/x-x509-ca-cert
       file_server
     '';
 
