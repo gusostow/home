@@ -38,7 +38,7 @@
 
       provisioners = [
         {
-          type = "ACME";
+          type = "acme";
           name = "acme";
           claims = {
             minTLSCertDuration = "1h";
