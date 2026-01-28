@@ -39,18 +39,19 @@
         dataSource = "/var/lib/step-ca/db";
       };
 
-      provisioners = [
-        {
-          type = "acme";
-          name = "acme";
-          claims = {
-            minTLSCertDuration = "1h";
-            maxTLSCertDuration = "720h";
-            defaultTLSCertDuration = "24h";
-          };
-          policy.x509.allow.dns = [ "*.home" ];
-        }
-      ];
+      authority = {
+        provisioners = [
+          {
+            type = "ACME";
+            name = "acme";
+            claims = {
+              minTLSCertDuration = "1h";
+              maxTLSCertDuration = "720h";
+              defaultTLSCertDuration = "24h";
+            };
+          }
+        ];
+      };
     };
   };
 }
