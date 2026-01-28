@@ -31,7 +31,10 @@
 
       logger.format = "text";
 
-      db = null;
+      db = {
+        type = "badgerv2";
+        dataSource = "/var/lib/step-ca/db";
+      };
 
       provisioners = [
         {
