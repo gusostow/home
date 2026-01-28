@@ -25,7 +25,6 @@
 
       address = "localhost:8443";
       dnsNames = [
-        "ca.home"
         "localhost"
       ];
 
