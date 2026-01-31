@@ -160,6 +160,7 @@
     pciutils
     radeontop
     tcpdump
+    unrar
     vim
     wget
   ];
