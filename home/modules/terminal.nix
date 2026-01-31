@@ -119,6 +119,7 @@
     curl
     dust
     fx
+    gh
     helix
     htop
     inetutils
