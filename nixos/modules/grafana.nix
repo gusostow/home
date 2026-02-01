@@ -9,7 +9,7 @@ let
   # Node Exporter Full dashboard (ID: 1860)
   nodeExporterDashboard = pkgs.fetchurl {
     url = "https://grafana.com/api/dashboards/1860/revisions/37/download";
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-1DE1aaanRHHeCOMWDGdOS1wBXxOF84UXAjJzT5Ek6mM=";
   };
 
   dashboardsDir = pkgs.runCommand "grafana-dashboards" { } ''
