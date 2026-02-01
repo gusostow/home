@@ -123,6 +123,8 @@ in
           "processes"
           "textfile"
           "pressure"
+          "diskstats"
+          "filesystem"
         ];
         extraFlags = [
           "--collector.textfile.directory=/var/lib/prometheus-node-exporter"
