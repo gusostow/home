@@ -57,14 +57,10 @@ let
   '';
 in
 {
-  # Create textfile collector directory
+  # Create textfile collector directory (world-readable, root-owned)
   systemd.tmpfiles.rules = [
-    "d /var/lib/prometheus-node-exporter 0755 prometheus-node-exporter prometheus-node-exporter -"
+    "d /var/lib/prometheus-node-exporter 0777 root root -"
   ];
-
-  # Ensure node exporter starts after tmpfiles creates the directory
-  systemd.services.prometheus-node-exporter.after = [ "systemd-tmpfiles-setup.service" ];
-  systemd.services.prometheus-node-exporter.requires = [ "systemd-tmpfiles-setup.service" ];
 
   # Timer to run amdgpu metrics collection every 15 seconds
   systemd.services.amdgpu-metrics = {
@@ -73,8 +69,6 @@ in
     serviceConfig = {
       Type = "oneshot";
       ExecStart = amdgpuMetricsScript;
-      User = "prometheus-node-exporter";
-      Group = "prometheus-node-exporter";
     };
   };
 
