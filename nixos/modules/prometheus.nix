@@ -122,6 +122,7 @@ in
           "systemd"
           "processes"
           "textfile"
+          "pressure"
         ];
         extraFlags = [
           "--collector.textfile.directory=/var/lib/prometheus-node-exporter"
