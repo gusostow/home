@@ -27,7 +27,7 @@ fi
 CLIENT_PRIVKEY=$(wg genkey)
 CLIENT_PUBKEY=$(echo "$CLIENT_PRIVKEY" | wg pubkey)
 
-SERVER_PUBKEY=$(wg pubkey < /root/secrets/wireguard-private-key)
+SERVER_PUBKEY=$(wg pubkey < $WG_PRIVATE_KEY_PATH)
 
 # Set AllowedIPs based on mode
 if [ "$ALL_TRAFFIC" = true ]; then
