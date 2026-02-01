@@ -89,17 +89,21 @@
       };
 
       # Custom local DNS entries for .home domains
-      misc.dnsmasq_lines = [
-        "address=/ultan.home/192.168.0.245"
-        "address=/ca.home/192.168.0.245"
-        "address=/prowlarr.home/192.168.0.245"
-        "address=/sonarr.home/192.168.0.245"
-        "address=/radarr.home/192.168.0.245"
-        "address=/qbittorrent.home/192.168.0.245"
-        "address=/tautulli.home/192.168.0.245"
-        "address=/pi-hole.home/192.168.0.245"
-        "local=/home/"
-      ];
+      misc.dnsmasq_lines =
+        let
+          mkInternalDNS = name: "address=/${name}/192.168.0.245";
+        in
+        [
+          (mkInternalDNS "ultan.home")
+          (mkInternalDNS "ca.home")
+          (mkInternalDNS "prowlarr.home")
+          (mkInternalDNS "sonarr.home")
+          (mkInternalDNS "radarr.home")
+          (mkInternalDNS "qbittorrent.home")
+          (mkInternalDNS "tautulli.home")
+          (mkInternalDNS "pi-hole.home")
+          "local=/home/"
+        ];
     };
   };
 
