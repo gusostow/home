@@ -138,6 +138,7 @@
           # Monitoring
           ./nixos/modules/prometheus.nix
           ./nixos/modules/grafana.nix
+          ./nixos/modules/loki.nix
           # Home-manager integration
           home-manager.nixosModules.home-manager
           {

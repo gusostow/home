@@ -35,6 +35,11 @@ in
           url = "http://localhost:9090";
           isDefault = true;
         }
+        {
+          name = "Loki";
+          type = "loki";
+          url = "http://localhost:3100";
+        }
       ];
       dashboards.settings.providers = [
         {
