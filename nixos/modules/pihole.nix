@@ -102,6 +102,7 @@
           (mkInternalDNS "qbittorrent.home")
           (mkInternalDNS "tautulli.home")
           (mkInternalDNS "pi-hole.home")
+          (mkInternalDNS "grafana.home")
           "local=/home/"
         ];
     };

@@ -43,6 +43,7 @@ in
     virtualHosts."qbittorrent.home" = mkInternalHost 8080;
     virtualHosts."tautulli.home" = mkInternalHost 8181;
     virtualHosts."pi-hole.home" = mkInternalHost 9797;
+    virtualHosts."grafana.home" = mkInternalHost 3000;
   };
 
   # Open HTTP and HTTPS ports
