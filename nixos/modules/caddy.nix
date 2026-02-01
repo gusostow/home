@@ -41,6 +41,7 @@ in
     virtualHosts."sonarr.home" = mkInternalHost 8989;
     virtualHosts."radarr.home" = mkInternalHost 7878;
     virtualHosts."qbittorrent.home" = mkInternalHost 8080;
+    virtualHosts."tautulli.home" = mkInternalHost 8181;
     virtualHosts."pi-hole.home" = mkInternalHost 9797;
   };
 

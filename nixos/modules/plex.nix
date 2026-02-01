@@ -15,6 +15,7 @@
     ./plex/overseerr.nix
     ./plex/unpackerr.nix
     ./plex/decluttarr.nix
+    ./plex/tautulli.nix
   ];
 
   # Shared configuration for media stack
