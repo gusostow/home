@@ -64,6 +64,11 @@
     };
   };
 
+  # Create promtail state directory
+  systemd.tmpfiles.rules = [
+    "d /var/lib/promtail 0755 promtail promtail -"
+  ];
+
   # Promtail to ship logs to Loki
   services.promtail = {
     enable = true;
