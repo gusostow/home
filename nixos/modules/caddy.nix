@@ -18,7 +18,13 @@ let
     forward_auth localhost:4180 {
       uri /oauth2/auth
       header_up X-Real-IP {remote_host}
+      header_up X-Forwarded-Uri {uri}
       copy_headers X-Auth-Request-User X-Auth-Request-Email
+
+      @unauthorized status 401
+      handle_response @unauthorized {
+        redir https://auth.home/oauth2/start?rd={scheme}://{host}{uri}
+      }
     }
   '';
 
