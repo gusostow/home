@@ -103,6 +103,7 @@
           (mkInternalDNS "tautulli.home")
           (mkInternalDNS "pi-hole.home")
           (mkInternalDNS "grafana.home")
+          (mkInternalDNS "idp.home")
           "local=/home/"
         ];
     };

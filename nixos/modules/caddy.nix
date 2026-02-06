@@ -44,6 +44,7 @@ in
     virtualHosts."tautulli.home" = mkInternalHost 8181;
     virtualHosts."pi-hole.home" = mkInternalHost 9797;
     virtualHosts."grafana.home" = mkInternalHost 3000;
+    virtualHosts."idp.home" = mkInternalHost 8180;
   };
 
   # Open HTTP and HTTPS ports

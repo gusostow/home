@@ -135,6 +135,8 @@
           ./nixos/modules/pihole.nix
           # PKI
           ./nixos/modules/ca.nix
+          # IdP
+          ./nixos/modules/keycloak.nix
           # Monitoring
           ./nixos/modules/prometheus.nix
           ./nixos/modules/grafana.nix
