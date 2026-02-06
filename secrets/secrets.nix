@@ -13,4 +13,5 @@ in
   "ultan-wg-key.age".publicKeys = [ systemUltan ];
   "intermediate-ca-key.age".publicKeys = [ systemUltan ];
   "keycloak-db-password.age".publicKeys = [ systemUltan ];
+  "keycloak-admin-password.age".publicKeys = [ systemUltan ];
 }
