@@ -47,7 +47,7 @@ in
         login_attribute_path = "preferred_username";
         name_attribute_path = "name";
         # grant admin to all OIDC users
-        role_attribute_strict = true;
+        role_attribute_strict = false;
         role_attribute_path = "'Admin'";
       };
     };
