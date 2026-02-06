@@ -104,6 +104,7 @@
           (mkInternalDNS "pi-hole.home")
           (mkInternalDNS "grafana.home")
           (mkInternalDNS "idp.home")
+          (mkInternalDNS "auth.home")
           "local=/home/"
         ];
     };

@@ -13,9 +13,27 @@ let
     }
   '';
 
+  # forward auth snippet for oauth2-proxy
+  forwardAuth = ''
+    forward_auth localhost:4180 {
+      uri /oauth2/auth
+      header_up X-Real-IP {remote_host}
+      copy_headers X-Auth-Request-User X-Auth-Request-Email
+    }
+  '';
+
   mkInternalHost = port: {
     extraConfig = ''
       ${internalTls}
+      reverse_proxy localhost:${toString port}
+    '';
+  };
+
+  # internal host with SSO via oauth2-proxy
+  mkProtectedHost = port: {
+    extraConfig = ''
+      ${internalTls}
+      ${forwardAuth}
       reverse_proxy localhost:${toString port}
     '';
   };
@@ -36,15 +54,25 @@ in
       file_server
     '';
 
-    # internal domains (use step-ca via ACME)
+    # internal domains with SSO (use step-ca via ACME + oauth2-proxy)
+    virtualHosts."tautulli.home" = mkProtectedHost 8181;
+
+    # internal domains without OAuth2-proxy
     virtualHosts."prowlarr.home" = mkInternalHost 9696;
     virtualHosts."sonarr.home" = mkInternalHost 8989;
     virtualHosts."radarr.home" = mkInternalHost 7878;
     virtualHosts."qbittorrent.home" = mkInternalHost 8080;
-    virtualHosts."tautulli.home" = mkInternalHost 8181;
     virtualHosts."pi-hole.home" = mkInternalHost 9797;
     virtualHosts."grafana.home" = mkInternalHost 3000;
     virtualHosts."idp.home" = mkInternalHost 8180;
+
+    # oauth2-proxy callback endpoint
+    virtualHosts."auth.home" = {
+      extraConfig = ''
+        ${internalTls}
+        reverse_proxy localhost:4180
+      '';
+    };
   };
 
   # Open HTTP and HTTPS ports

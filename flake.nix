@@ -137,6 +137,8 @@
           ./nixos/modules/ca.nix
           # IdP
           ./nixos/modules/keycloak.nix
+          # forward auth proxy
+          ./nixos/modules/oauth2-proxy.nix
           # Monitoring
           ./nixos/modules/prometheus.nix
           ./nixos/modules/grafana.nix
