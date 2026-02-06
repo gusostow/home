@@ -8,8 +8,7 @@
 {
   age.secrets.keycloak-db-password = {
     file = ../../secrets/keycloak-db-password.age;
-    owner = "keycloak";
-    group = "keycloak";
+    mode = "0400";
   };
 
   # keycloak identity provider
