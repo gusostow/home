@@ -11,17 +11,9 @@
     mode = "0400";
   };
 
-  age.secrets.keycloak-admin-password = {
-    file = ../../secrets/keycloak-admin-password.age;
-    mode = "0400";
-  };
-
   # keycloak identity provider
   services.keycloak = {
     enable = true;
-
-    # bootstrap admin user (only used on first start)
-    initialAdminPassword = config.age.secrets.keycloak-admin-password.path;
 
     database = {
       type = "postgresql";
