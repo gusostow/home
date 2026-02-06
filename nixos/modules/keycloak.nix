@@ -11,14 +11,17 @@
     mode = "0400";
   };
 
-  age.secrets.keycloak-admin-env = {
-    file = ../../secrets/keycloak-admin-env.age;
+  age.secrets.keycloak-admin-password = {
+    file = ../../secrets/keycloak-admin-password.age;
     mode = "0400";
   };
 
   # keycloak identity provider
   services.keycloak = {
     enable = true;
+
+    # bootstrap admin user (only used on first start)
+    initialAdminPassword = config.age.secrets.keycloak-admin-password.path;
 
     database = {
       type = "postgresql";
@@ -41,13 +44,9 @@
     };
   };
 
+  # ensure Keycloak starts after PostgreSQL is ready
   systemd.services.keycloak = {
-    # ensure Keycloak starts after PostgreSQL is ready
     after = [ "postgresql.service" ];
     requires = [ "postgresql.service" ];
-    serviceConfig = {
-      # bootstrap admin credentials (only used on first start)
-      EnvironmentFile = config.age.secrets.keycloak-admin-env.path;
-    };
   };
 }
