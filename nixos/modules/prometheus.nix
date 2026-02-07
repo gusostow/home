@@ -89,6 +89,12 @@ in
     # Retention settings
     retentionTime = "30d";
 
+    # Global scrape interval (default is 1m, set to 15s for better resolution)
+    globalConfig = {
+      scrape_interval = "15s";
+      evaluation_interval = "15s";
+    };
+
     # Scrape configurations
     scrapeConfigs = [
       # Prometheus self-monitoring
