@@ -15,7 +15,7 @@ let
   # Loki Logs dashboard (ID: 13639)
   lokiLogsDashboard = pkgs.fetchurl {
     url = "https://grafana.com/api/dashboards/13639/revisions/2/download";
-    hash = "sha256-/mJlH0EzTg2ei/Njoqd+OOXQqPdE9JKKwS76j9c2Mtg=";
+    hash = "sha256-2dRUkooIA1E0Qshg58N+9duIW25iRruu1oW8ckBUNIA=";
   };
 
   dashboardsDir = pkgs.runCommand "grafana-dashboards" { } ''
