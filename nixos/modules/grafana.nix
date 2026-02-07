@@ -46,10 +46,8 @@ in
         email_attribute_path = "email";
         login_attribute_path = "preferred_username";
         name_attribute_path = "name";
-        # grant admin to all OIDC users
-        role_attribute_strict = false;
-        role_attribute_path = "'GrafanaAdmin'";
-        # sync org roles
+        # grant admin to all OIDC users - don't use role mapping, just auto-assign
+        skip_org_role_sync = true;
         auto_assign_org_role = "Admin";
       };
     };
