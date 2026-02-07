@@ -46,7 +46,13 @@ in
         email_attribute_path = "email";
         login_attribute_path = "preferred_username";
         name_attribute_path = "name";
-        # grant admin to all OIDC users - don't use role mapping, just auto-assign
+        # TODO: Configure Keycloak to send roles in OIDC token
+        # 1. Create client role "Admin" in grafana client
+        # 2. Assign role to users
+        # 3. Add "User Client Role" mapper to grafana-dedicated scope
+        #    - Token Claim Name: grafana_role
+        #    - Client ID: grafana
+        # 4. Update role_attribute_path to: contains(grafana_role[*], 'Admin') && 'Admin' || 'Viewer'
         skip_org_role_sync = true;
         auto_assign_org_role = "Admin";
       };
