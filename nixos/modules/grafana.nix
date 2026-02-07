@@ -48,7 +48,9 @@ in
         name_attribute_path = "name";
         # grant admin to all OIDC users
         role_attribute_strict = false;
-        role_attribute_path = "'Admin'";
+        role_attribute_path = "'GrafanaAdmin'";
+        # sync org roles
+        auto_assign_org_role = "Admin";
       };
     };
     provision = {
