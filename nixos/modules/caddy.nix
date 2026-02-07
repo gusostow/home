@@ -60,10 +60,8 @@ in
       file_server
     '';
 
-    # internal domains with SSO (use step-ca via ACME + oauth2-proxy)
-    virtualHosts."tautulli.home" = mkProtectedHost 8181;
-
     # internal domains without OAuth2-proxy
+    virtualHosts."tautulli.home" = mkInternalHost 8181;
     virtualHosts."prowlarr.home" = mkInternalHost 9696;
     virtualHosts."sonarr.home" = mkInternalHost 8989;
     virtualHosts."radarr.home" = mkInternalHost 7878;
