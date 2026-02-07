@@ -18,10 +18,20 @@ let
     hash = "sha256-2dRUkooIA1E0Qshg58N+9duIW25iRruu1oW8ckBUNIA=";
   };
 
-  dashboardsDir = pkgs.runCommand "grafana-dashboards" { } ''
+  dashboardsDir = pkgs.runCommand "grafana-dashboards" { buildInputs = [ pkgs.jq ]; } ''
     mkdir -p $out
     cp ${nodeExporterDashboard} $out/node-exporter-full.json
-    cp ${lokiLogsDashboard} $out/loki-logs.json
+
+    # replace datasource variable with actual datasource name
+    jq '
+      walk(
+        if type == "object" and has("datasource") then
+          if .datasource == "''${DS_LOKI}" or .datasource == "$DS_LOKI" then
+            .datasource = "Loki"
+          else . end
+        else . end
+      )
+    ' ${lokiLogsDashboard} > $out/loki-logs.json
   '';
 in
 {
