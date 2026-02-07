@@ -12,16 +12,9 @@ let
     hash = "sha256-1DE1aaanRHHeCOMWDGdOS1wBXxOF84UXAjJzT5Ek6mM=";
   };
 
-  # Loki Logs dashboard (ID: 13639)
-  lokiLogsDashboard = pkgs.fetchurl {
-    url = "https://grafana.com/api/dashboards/13639/revisions/2/download";
-    hash = "sha256-/mJlH0EzTg2ei/Njoqd+OOXQqPdE9JKKwS76j9c2Mtg=";
-  };
-
   dashboardsDir = pkgs.runCommand "grafana-dashboards" { } ''
     mkdir -p $out
     cp ${nodeExporterDashboard} $out/node-exporter-full.json
-    cp ${lokiLogsDashboard} $out/loki-logs.json
   '';
 in
 {
