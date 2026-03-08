@@ -201,18 +201,30 @@
     '';
   };
 
-  # Mount 2TB SATA SSD
+  # mount 2TB SATA SSD
   fileSystems."/space" = {
     device = "/dev/disk/by-uuid/8a784acc-6319-4459-8fec-d1c3e90a5ac5";
     fsType = "ext4";
     options = [ "defaults" ];
   };
 
-  # Mount 12TB removeable HDD
+  # mount 12TB removeable HDD
   fileSystems."/mnt/space2" = {
     device = "/dev/disk/by-uuid/ad899781-fe94-4f3b-9545-9305e60d8cf4";
     fsType = "ext4";
     options = [ "defaults" ];
+  };
+
+  # merge both disks into /space at the file level
+  fileSystems."/mnt/merge" = {
+    device = "/mnt/space2";
+    fsType = "fuse.mergerfs";
+    options = [
+      "defaults"
+      "allow_other"
+      "use_ino"
+      "category.create=mfs"
+    ];
   };
 
   # Enable media stack (Plex, *arr apps, etc.)
