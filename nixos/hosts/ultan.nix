@@ -208,6 +208,13 @@
     options = [ "defaults" ];
   };
 
+  # Mount 12TB removeable HDD
+  fileSystems."/mnt/space2" = {
+    device = "/dev/disk/by-uuid/ad899781-fe94-4f3b-9545-9305e60d8cf4";
+    fsType = "ext4";
+    options = [ "defaults" ];
+  };
+
   # Enable media stack (Plex, *arr apps, etc.)
   services.mediaStack.enable = true;
 
