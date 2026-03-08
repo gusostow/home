@@ -155,6 +155,7 @@
     amdgpu_top
     dig
     ethtool
+    mergerfs
     unixtools.netstat
     unixtools.ifconfig
     pciutils
