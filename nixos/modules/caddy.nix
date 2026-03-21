@@ -35,6 +35,29 @@ let
     '';
   };
 
+  # internal host with upload optimizations for Immich
+  mkImmichHost = port: {
+    extraConfig = ''
+      ${internalTls}
+
+      # allow large file uploads (photos/videos)
+      request_body {
+        max_size 2GB
+      }
+
+      reverse_proxy localhost:${toString port} {
+        # long timeout for large video uploads
+        timeout 1h
+
+        # disable buffering for streaming uploads
+        flush_interval -1
+
+        # increase header timeout
+        header_timeout 30s
+      }
+    '';
+  };
+
   # internal host with SSO via oauth2-proxy
   mkProtectedHost = port: {
     extraConfig = ''
@@ -69,7 +92,7 @@ in
     virtualHosts."pi-hole.home" = mkInternalHost 9797;
     virtualHosts."grafana.home" = mkInternalHost 3000;
     virtualHosts."idp.home" = mkInternalHost 8180;
-    virtualHosts."photos.home" = mkInternalHost 2283;
+    virtualHosts."photos.home" = mkImmichHost 2283;
 
     # oauth2-proxy callback endpoint
     virtualHosts."auth.home" = {
