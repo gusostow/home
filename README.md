@@ -63,7 +63,7 @@ iphone
   - Go to Settings > General > About > Certificate Trust Settings
   - Toggle ON your CA certificate under "Enable Full Trust for Root Certificates"
 
-## Create Keycloak account
+### Create Keycloak account
 
 1. Login with admin user in master realm `https://idp.home`.
 2. Switch to `home` realm via Manage realms.
@@ -71,7 +71,7 @@ iphone
     - Set Update Password as the only required user action
 4. Set a temporary password: Users > $USER > Set password (temporary ON)
 
-## Wireguard
+### Wireguard
 
 Choose an IP for the new client on the `10.0.0.0/8` subnet. See used IPs in
 [`wireguard.nix`](./nixos/modules/wireguard.nix).
