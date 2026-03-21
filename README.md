@@ -57,7 +57,7 @@ iphone
 2. You'll see a prompt "This website is trying to download a configuration profile"
 3. Tap Allow
 4. Install the profile:
-  - Go to Settings → Profile Downloaded (appears at the top)
+  - Go to Settings > Profile Downloaded (appears at the top)
   - Hit install
 5. Trust the certificate:
   - Go to Settings > General > About > Certificate Trust Settings
