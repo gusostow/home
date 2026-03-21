@@ -122,6 +122,7 @@
     gh
     helix
     htop
+    immich-cli
     inetutils
     jq
     ripgrep
