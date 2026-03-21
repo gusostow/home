@@ -46,14 +46,8 @@ let
       }
 
       reverse_proxy localhost:${toString port} {
-        # long timeout for large video uploads
-        timeout 1h
-
         # disable buffering for streaming uploads
         flush_interval -1
-
-        # increase header timeout
-        header_timeout 30s
       }
     '';
   };
