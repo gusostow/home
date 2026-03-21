@@ -139,6 +139,8 @@
           ./nixos/modules/keycloak.nix
           # forward auth proxy
           ./nixos/modules/oauth2-proxy.nix
+          # photo management
+          ./nixos/modules/immich.nix
           # Monitoring
           ./nixos/modules/prometheus.nix
           ./nixos/modules/grafana.nix

@@ -105,6 +105,7 @@
           (mkInternalDNS "grafana.home")
           (mkInternalDNS "idp.home")
           (mkInternalDNS "auth.home")
+          (mkInternalDNS "photos.home")
           "local=/home/"
         ];
     };

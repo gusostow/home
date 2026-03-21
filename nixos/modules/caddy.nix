@@ -69,6 +69,7 @@ in
     virtualHosts."pi-hole.home" = mkInternalHost 9797;
     virtualHosts."grafana.home" = mkInternalHost 3000;
     virtualHosts."idp.home" = mkInternalHost 8180;
+    virtualHosts."photos.home" = mkInternalHost 2283;
 
     # oauth2-proxy callback endpoint
     virtualHosts."auth.home" = {
