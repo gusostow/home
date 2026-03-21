@@ -6,6 +6,12 @@
 }:
 
 {
+  age.secrets.immich-oidc-secret = {
+    file = ../../secrets/immich-oidc-secret.age;
+    mode = "0400";
+    owner = "immich";
+  };
+
   # immich photo management service
   services.immich = {
     enable = true;
@@ -21,18 +27,19 @@
       server = {
         externalDomain = "https://photos.home";
       };
-    };
 
-    # OAuth/OIDC configuration with Keycloak
-    # note: OAuth is configured through the web UI at https://photos.home/admin/system-settings
-    # Required settings:
-    # - Enable: true
-    # - Issuer URL: https://idp.home/realms/home
-    # - Client ID: immich
-    # - Client Secret: (from Keycloak client credentials tab)
-    # - Scope: openid profile email
-    # - Button Text: Login with Keycloak (optional)
-    # - Auto Register: true (to allow new Keycloak users to create accounts)
+      # OAuth/OIDC configuration with Keycloak
+      oauth = {
+        enabled = true;
+        issuerUrl = "https://idp.home/realms/home";
+        clientId = "immich";
+        clientSecret._secret = config.age.secrets.immich-oidc-secret.path;
+        scope = "openid email profile";
+        buttonText = "Login with Keycloak";
+        autoRegister = true;
+        autoLaunch = false;
+      };
+    };
   };
 
   # ensure media directory exists and has correct permissions
