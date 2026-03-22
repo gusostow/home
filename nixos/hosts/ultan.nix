@@ -207,6 +207,9 @@
         # Allow all private networks (RFC1918)
         ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } accept
 
+        # Allow nc testing on local network
+        tcp dport 9999 ip saddr 192.168.0.0/16 accept
+
         # Allow localhost
         ip saddr 127.0.0.0/8 accept
 

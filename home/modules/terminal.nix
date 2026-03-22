@@ -125,6 +125,7 @@
     immich-cli
     inetutils
     jq
+    pv
     ripgrep
     step-cli
     tldr
