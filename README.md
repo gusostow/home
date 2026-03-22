@@ -50,6 +50,7 @@ Mac
 
 1. From my LAN, download root CA cert from http://ca.home/ca.cer.
 2. Open it with Keychain and add it to the system trust store.
+3. Open Keychain Access > System > Home Root CA > (expand Trust) > When using this certificate > Always Trust.
 
 iphone
 
