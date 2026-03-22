@@ -51,5 +51,9 @@
   systemd.services.immich-server = {
     after = [ "space.mount" ];
     requires = [ "space.mount" ];
+    serviceConfig = {
+      # allow group read access for backups
+      UMask = lib.mkForce "0022";
+    };
   };
 }
