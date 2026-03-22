@@ -141,6 +141,8 @@
           ./nixos/modules/oauth2-proxy.nix
           # photo management
           ./nixos/modules/immich.nix
+          # S3 backups
+          ./nixos/modules/backup.nix
           # Monitoring
           ./nixos/modules/prometheus.nix
           ./nixos/modules/grafana.nix
