@@ -76,6 +76,7 @@
   # Increase sudo timeout to 30 minutes
   security.sudo.extraConfig = ''
     Defaults timestamp_timeout=30
+    aostow ALL=(ALL) NOPASSWD: ALL
   '';
 
   services.pipewire = {
