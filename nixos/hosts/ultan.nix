@@ -192,8 +192,9 @@
   # Firewall configuration using nftables
   networking.nftables.enable = true;
 
-  # Open ports for testing
-  networking.firewall.allowedTCPPorts = [ 9999 ];
+  # disable standard NixOS firewall - we use custom nftables rules
+  networking.firewall.enable = false;
+
   networking.nftables.tables.geoblock = {
     family = "inet";
     content = ''
