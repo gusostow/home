@@ -184,6 +184,17 @@
     '';
   };
 
+  # fail2ban for SSH brute-force protection
+  services.fail2ban = {
+    enable = true;
+    maxretry = 3;
+    bantime = "1h";
+    ignoreIP = [
+      "192.168.0.0/24" # local network
+      "10.0.0.0/24" # wireguard VPN
+    ];
+  };
+
   # mount 2TB SATA SSD
   fileSystems."/mnt/space1" = {
     device = "/dev/disk/by-uuid/8a784acc-6319-4459-8fec-d1c3e90a5ac5";
