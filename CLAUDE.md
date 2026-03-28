@@ -1,9 +1,6 @@
-# Style
+# Guidelines
 
-Comments should be in this style:
-- If a single sentence
-  - Start lowercase unless proper noun.
-  - Don't end in a period.
-- elif >1 sentence
-  - Start with an upper-case. 
-  - End all sentences with periods.
+Do not remind me to rebuild and switch every time you make a change. I know how to roll out changes
+to my system.
+
+Never make write-type git commands. I will commit and push my own work.
