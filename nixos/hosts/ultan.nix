@@ -54,18 +54,14 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # Desktop environment disabled for security (reduces attack surface)
+  # services.xserver.enable = true;
+  # services.displayManager.gdm.enable = true;
+  # services.desktopManager.gnome.enable = true;
+  # services.xserver.xkb = {
+  #   layout = "us";
+  #   variant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -92,16 +88,14 @@
     #media-session.enable = true;
   };
 
-  # Disable automatic suspend/hibernate
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowSuspendThenHibernate=no
-    AllowHybridSleep=no
-  '';
-
-  # Disable GNOME's automatic suspend
-  services.displayManager.gdm.autoSuspend = false;
+  # Sleep/suspend settings (not needed without desktop environment)
+  # systemd.sleep.extraConfig = ''
+  #   AllowSuspend=no
+  #   AllowHibernation=no
+  #   AllowSuspendThenHibernate=no
+  #   AllowHybridSleep=no
+  # '';
+  # services.displayManager.gdm.autoSuspend = false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
