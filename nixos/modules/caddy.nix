@@ -65,6 +65,17 @@ in
   services.caddy = {
     enable = true;
 
+    # JSON access logging for security monitoring
+    globalConfig = ''
+      log {
+        output file /var/log/caddy/access.log {
+          roll_size 100mb
+          roll_keep 10
+        }
+        format json
+      }
+    '';
+
     # external domains (use Let's Encrypt)
     virtualHosts."plex.foamer.net".extraConfig = "reverse_proxy localhost:32400";
     virtualHosts."requests.foamer.net".extraConfig = "reverse_proxy localhost:5055";

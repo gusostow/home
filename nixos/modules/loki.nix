@@ -107,6 +107,38 @@
             }
           ];
         }
+        {
+          job_name = "caddy";
+          static_configs = [
+            {
+              targets = [ "localhost" ];
+              labels = {
+                job = "caddy";
+                host = "ultan";
+                __path__ = "/var/log/caddy/*.log";
+              };
+            }
+          ];
+          pipeline_stages = [
+            {
+              json = {
+                expressions = {
+                  level = "level";
+                  status = "status";
+                  duration = "duration";
+                  size = "size";
+                  request = "request";
+                };
+              };
+            }
+            {
+              labels = {
+                level = "";
+                status = "";
+              };
+            }
+          ];
+        }
       ];
     };
   };
