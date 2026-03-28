@@ -46,4 +46,10 @@
 
     keyFile = config.age.secrets.oauth2-proxy-env.path;
   };
+
+  # ensure oauth2-proxy starts after Keycloak is ready
+  systemd.services.oauth2-proxy = {
+    after = [ "keycloak.service" ];
+    wants = [ "keycloak.service" ];
+  };
 }

@@ -40,5 +40,11 @@
   systemd.services.keycloak = {
     after = [ "postgresql.service" ];
     requires = [ "postgresql.service" ];
+
+    # wait for HTTP endpoint to be ready before marking service as started
+    # this prevents oauth2-proxy from starting before keycloak is ready
+    serviceConfig = {
+      ExecStartPost = "${pkgs.bash}/bin/bash -c 'for i in {1..30}; do ${pkgs.curl}/bin/curl -sf http://127.0.0.1:8180 >/dev/null && exit 0; sleep 1; done; exit 1'";
+    };
   };
 }
