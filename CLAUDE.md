@@ -140,6 +140,35 @@ Both hosts define `home` registry:
 - Custom packages in pkgs/ (currently: decluttarr v2.0.0)
 - Comment style: single sentence = lowercase, no period; multiple = uppercase, periods
 
+## Adding an Internal Service
+
+To add a new internal service with .home domain and reverse proxy:
+
+1. **Create service module**:
+   - Media services: `nixos/modules/plex/<service>.nix`
+   - Other services: `nixos/modules/<service>.nix`
+   - Follow existing patterns (see radarr.nix, sonarr.nix)
+   - Use `services.mediaStack.enable` for media services
+   - Set `dataDir` under `/space/config/<service>`
+   - Add user to `media` group if handling media files
+   - Set `UMask = "0002"` for group-writable permissions
+   - Ensure service depends on `space.mount` if using /space
+
+2. **Add import to parent module**:
+   - Media services: add to `nixos/modules/plex.nix` imports list
+   - Keep imports alphabetically organized
+
+3. **Add DNS entry** in `nixos/modules/pihole.nix`:
+   - Add to `misc.dnsmasq_lines` list: `(mkInternalDNS "<service>.home")`
+   - Keep entries alphabetically organized
+
+4. **Add reverse proxy** in `nixos/modules/caddy.nix`:
+   - Add virtualHost: `virtualHosts."<service>.home" = mkInternalHost <port>;`
+   - Use `mkProtectedHost` if service needs OAuth2 protection
+   - Keep entries alphabetically organized
+
+Example: See commits adding lidarr.nix for reference
+
 # Dependencies
 
 - nixpkgs: nixos-25.11
