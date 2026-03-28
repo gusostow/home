@@ -99,6 +99,7 @@
           (mkInternalDNS "prowlarr.home")
           (mkInternalDNS "sonarr.home")
           (mkInternalDNS "radarr.home")
+          (mkInternalDNS "lidarr.home")
           (mkInternalDNS "qbittorrent.home")
           (mkInternalDNS "tautulli.home")
           (mkInternalDNS "pi-hole.home")

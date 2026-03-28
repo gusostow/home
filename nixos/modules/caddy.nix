@@ -82,6 +82,7 @@ in
     virtualHosts."prowlarr.home" = mkInternalHost 9696;
     virtualHosts."sonarr.home" = mkInternalHost 8989;
     virtualHosts."radarr.home" = mkInternalHost 7878;
+    virtualHosts."lidarr.home" = mkInternalHost 8686;
     virtualHosts."qbittorrent.home" = mkInternalHost 8080;
     virtualHosts."pi-hole.home" = mkInternalHost 9797;
     virtualHosts."grafana.home" = mkInternalHost 3000;

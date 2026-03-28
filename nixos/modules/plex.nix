@@ -12,6 +12,7 @@
     ./plex/indexer.nix
     ./plex/radarr.nix
     ./plex/sonarr.nix
+    ./plex/lidarr.nix
     ./plex/overseerr.nix
     ./plex/unpackerr.nix
     ./plex/decluttarr.nix
