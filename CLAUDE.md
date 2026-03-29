@@ -9,6 +9,11 @@ to my system.
 
 Never make write-type git commands. I will commit and push my own work.
 
+# Reminders
+
+Use the nixos MCP server instead of search the web for module documentation or what packages are
+available.
+
 # How-to
 
 You can SSH to ultan for investigations. Don't do this unless asked.
