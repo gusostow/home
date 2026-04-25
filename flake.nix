@@ -162,6 +162,7 @@
                   ./home/profiles/ultan.nix
                   ./home/modules/terminal.nix
                   ./home/modules/neovim.nix
+                  ./home/modules/claude
                 ];
               };
             };

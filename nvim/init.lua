@@ -61,3 +61,13 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.tabstop = 2
   end
 })
+
+-- markdown files use 2 spaces for indentation
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
+    vim.bo.tabstop = 2
+  end
+})
