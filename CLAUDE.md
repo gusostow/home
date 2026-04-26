@@ -14,6 +14,8 @@ Never make write-type git commands. I will commit and push my own work.
 Use the nixos MCP server instead of search the web for module documentation or what packages are
 available.
 
+DO NOT TRY TO BREW INSTALL STUFF IF YOU RUN INTO TROUBLE WITH NIX (unless i explicitly) ask!!
+
 # How-to
 
 You can SSH to ultan for investigations. Don't do this unless asked.

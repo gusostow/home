@@ -54,14 +54,15 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # Minimal X11 for xpra (no desktop environment for security)
+  services.xserver.enable = true;
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
   # Desktop environment disabled for security (reduces attack surface)
-  # services.xserver.enable = true;
   # services.displayManager.gdm.enable = true;
   # services.desktopManager.gnome.enable = true;
-  # services.xserver.xkb = {
-  #   layout = "us";
-  #   variant = "";
-  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -159,6 +160,7 @@
     unrar
     vim
     wget
+    xpra
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
