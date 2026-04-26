@@ -177,6 +177,7 @@
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
+      X11Forwarding = true;
     };
     # Only allow SSH for aostow user
     extraConfig = ''
