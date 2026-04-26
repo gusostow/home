@@ -31,7 +31,6 @@ in
     # add to immich group to read /space/immich
     extraGroups = [
       "immich"
-      "aostow"
     ];
     description = "Backup service user";
   };
