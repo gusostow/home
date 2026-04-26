@@ -10,17 +10,6 @@
   # most server-specific packages are installed at host level in nixos/hosts/ultan.nix.
   home.packages = with pkgs; [ ];
 
-  # VNC session startup script
-  home.file.".vnc/xstartup" = {
-    text = ''
-      #!/bin/sh
-      unset SESSION_MANAGER
-      unset DBUS_SESSION_BUS_ADDRESS
-      exec fluxbox
-    '';
-    executable = true;
-  };
-
   programs.zsh = {
     initContent = ''
       function po {
