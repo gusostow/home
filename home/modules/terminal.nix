@@ -131,6 +131,7 @@
     step-cli
     tldr
     tree
+    unzip
     wget
     zip
   ];
