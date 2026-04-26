@@ -38,7 +38,6 @@
     ffmpeg
     imagemagick
     wireguard-tools
-    xpra
     yt-dlp-light
   ];
 

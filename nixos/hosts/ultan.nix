@@ -151,7 +151,9 @@
     amdgpu_top
     dig
     ethtool
+    fluxbox
     mergerfs
+    tigervnc
     unixtools.netstat
     unixtools.ifconfig
     pciutils
@@ -160,7 +162,6 @@
     unrar
     vim
     wget
-    xpra
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
