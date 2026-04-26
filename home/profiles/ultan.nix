@@ -21,6 +21,15 @@
     executable = true;
   };
 
+  # Xsession file for VNC
+  home.file.".vnc/Xsession" = {
+    text = ''
+      #!/bin/sh
+      exec fluxbox
+    '';
+    executable = true;
+  };
+
   programs.zsh = {
     initContent = ''
       function po {
