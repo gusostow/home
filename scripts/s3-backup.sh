@@ -7,6 +7,7 @@ set -euo pipefail
 BACKUP_BUCKET="aostow-home-backups"
 BACKUP_PATHS=(
   "/space/immich"
+  "/space/backups"
 )
 
 log() {

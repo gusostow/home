@@ -29,7 +29,10 @@ in
     isSystemUser = true;
     group = "backup";
     # add to immich group to read /space/immich
-    extraGroups = [ "immich" ];
+    extraGroups = [
+      "immich"
+      "aostow"
+    ];
     description = "Backup service user";
   };
 
