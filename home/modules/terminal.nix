@@ -132,5 +132,6 @@
     tldr
     tree
     wget
+    zip
   ];
 }
