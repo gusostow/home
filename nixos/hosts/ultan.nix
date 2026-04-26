@@ -162,6 +162,7 @@
     unrar
     vim
     wget
+    xorg.xinit
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
