@@ -4,6 +4,14 @@ function mkcd {
     mkdir $1 && cd $1
 }
 
+function mkproject {
+    local name="$1"
+    local dir="/Users/aostow/dev/journal/projects/${name}.$(ymd)"
+    mkdir -p "$dir"
+    echo "_$(ymd)_" > $dir/log.md
+    cd "$dir" && abs "$dir"
+}
+
 function cd {
     builtin cd "$@" && ls -F
 }
