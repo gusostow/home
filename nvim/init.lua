@@ -32,6 +32,10 @@ vim.api.nvim_set_keymap('n', '<C-l>', ':tabnext<CR>', { noremap = true })
 vim.opt.hlsearch = true
 vim.api.nvim_set_keymap('n', '<C-[>', ':nohl<CR><C-[>', { noremap = true })
 
+-- enable spell checking
+vim.opt.spell = true
+vim.opt.spelllang = 'en_us'
+
 vim.api.nvim_set_keymap('n', '<Leader>h', ':e $HOME/dev/home/home.nix<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>sv', ':source $MYVIMRC<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>cp', ':let @+ = expand("%:p")<CR>', { noremap = true })
