@@ -192,8 +192,9 @@
       PermitRootLogin = "no";
       X11Forwarding = true;
     };
-    # Only allow SSH for aostow user
+    # Only allow SSH for specific users
     extraConfig = ''
+      AllowUsers anjie
       AllowUsers aostow
     '';
   };
