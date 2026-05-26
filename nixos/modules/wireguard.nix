@@ -59,6 +59,11 @@
           publicKey = "nJcTov8yO36HiA6ZZQn4JkWP7i0k8ZOTGoLCt9p6xQY=";
           allowedIPs = [ "10.0.0.5/32" ];
         }
+        # anjie
+        {
+          publicKey = "2u04nKELVYDS1huGeSbqbHP0hPivJnxW3qdlKgyaOlg=";
+          allowedIPs = [ "10.0.0.6/32" ];
+        }
       ];
     };
   };

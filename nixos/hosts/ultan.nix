@@ -117,6 +117,19 @@
     ];
   };
 
+  users.users.anjie = {
+    isNormalUser = true;
+    description = "Ankai";
+    extraGroups = [ ];
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOaapj60iZIXrMvXOojYQcVDXCn7srOTjiD4rinnuC2 ankaijie@gmail.com"
+    ];
+    packages = with pkgs; [
+      #  thunderbird
+    ];
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
