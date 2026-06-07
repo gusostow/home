@@ -48,6 +48,10 @@ vim.api.nvim_set_keymap('n', '<leader>F', ':Format<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>f', ':Files<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>g', ':GFiles<CR>', { noremap = true })
 
+-- insert current date in YYYY-MM-DD format
+vim.api.nvim_set_keymap('n', '<leader>d', 'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>', { noremap = true })
+vim.api.nvim_set_keymap('i', '<leader>d', '<C-R>=strftime("%Y-%m-%d")<CR>', { noremap = true })
+
 -- Arduino support
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
   pattern = {"*.ino", "*.pde"},
