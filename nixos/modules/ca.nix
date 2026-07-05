@@ -6,6 +6,9 @@
   # trust the internal CA system-wide
   security.pki.certificateFiles = [ ./ca/root/ca.crt ];
 
+  # make Python (requests/httpx) use system CA store
+  environment.variables.REQUESTS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
+
   age.secrets.intermediate-ca-key = {
     file = ../../secrets/intermediate-ca-key.age;
     mode = "440";
