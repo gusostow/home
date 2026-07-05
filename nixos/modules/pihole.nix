@@ -114,4 +114,11 @@
 
   # Disable standalone dnsmasq (Pi-hole uses its own)
   services.dnsmasq.enable = lib.mkForce false;
+
+  # workaround: setup script exits with status 1 when blocklists already exist in database
+  # (UNIQUE constraint violation), but gravity update succeeds and service is functional
+  systemd.services.pihole-ftl-setup.serviceConfig.SuccessExitStatus = [
+    0
+    1
+  ];
 }
