@@ -59,5 +59,6 @@
     after = [ "space.mount" ];
     requires = [ "space.mount" ];
     serviceConfig.UMask = lib.mkForce "0022";
+    environment.REQUESTS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
   };
 }
