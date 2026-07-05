@@ -19,8 +19,8 @@
     systemd.services.tautulli.after = [ "space.mount" ];
     systemd.services.tautulli.requires = [ "space.mount" ];
 
-    # Set umask so new files/dirs are group-writeable
-    systemd.services.tautulli.serviceConfig.UMask = "0002";
+    # set umask so new files/dirs are group-writeable
+    systemd.services.tautulli.serviceConfig.UMask = lib.mkForce "0002";
 
     # Add tautulli user to media group
     users.groups.tautulli = { };

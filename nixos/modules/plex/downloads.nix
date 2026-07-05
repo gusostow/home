@@ -55,8 +55,8 @@
       after = [ "space.mount" ];
       requires = [ "space.mount" ];
 
-      # Set umask so created files/dirs are group-writable
-      serviceConfig.UMask = "0002";
+      # set umask so created files/dirs are group-writable
+      serviceConfig.UMask = lib.mkForce "0002";
     };
   };
 }

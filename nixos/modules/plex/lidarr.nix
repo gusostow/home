@@ -19,8 +19,8 @@
     systemd.services.lidarr.after = [ "space.mount" ];
     systemd.services.lidarr.requires = [ "space.mount" ];
 
-    # Set umask so new files/dirs are group-writeable (775 for dirs, 664 for files)
-    systemd.services.lidarr.serviceConfig.UMask = "0002";
+    # set umask so new files/dirs are group-writeable (775 for dirs, 664 for files)
+    systemd.services.lidarr.serviceConfig.UMask = lib.mkForce "0002";
 
     # Lidarr runs as its own user, add to media group
     users.users.lidarr.extraGroups = [ "media" ];
