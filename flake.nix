@@ -141,6 +141,8 @@
           ./nixos/modules/oauth2-proxy.nix
           # photo management
           ./nixos/modules/immich.nix
+          # document management
+          ./nixos/modules/paperless.nix
           # S3 backups
           ./nixos/modules/backup.nix
           # Monitoring

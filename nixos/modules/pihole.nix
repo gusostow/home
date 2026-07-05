@@ -107,6 +107,7 @@
           (mkInternalDNS "idp.home")
           (mkInternalDNS "auth.home")
           (mkInternalDNS "photos.home")
+          (mkInternalDNS "docs.home")
           "local=/home/"
         ];
     };

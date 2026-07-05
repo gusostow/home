@@ -97,6 +97,7 @@ in
     virtualHosts."grafana.home" = mkInternalHost 3000;
     virtualHosts."idp.home" = mkInternalHost 8180;
     virtualHosts."photos.home" = mkImmichHost 2283;
+    virtualHosts."docs.home" = mkInternalHost 28981;
 
     # oauth2-proxy callback endpoint
     virtualHosts."auth.home" = {

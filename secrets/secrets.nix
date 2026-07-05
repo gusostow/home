@@ -17,5 +17,6 @@ in
   "grafana-oidc-secret.age".publicKeys = [ systemUltan ];
   "grafana-secret-key.age".publicKeys = [ systemUltan ];
   "immich-oidc-secret.age".publicKeys = [ systemUltan ];
+  "paperless-env.age".publicKeys = [ systemUltan ];
   "oauth2-proxy-env.age".publicKeys = [ systemUltan ];
 }

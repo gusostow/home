@@ -8,6 +8,7 @@ BACKUP_BUCKET="aostow-home-backups"
 BACKUP_PATHS=(
   "/space/immich"
   "/space/backups"
+  "/space/documents"
 )
 
 log() {
