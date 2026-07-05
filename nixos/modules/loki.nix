@@ -80,12 +80,6 @@
             systemd_filter = "_TRANSPORT=journal";
             tag = "systemd";
           }
-          {
-            name = "tail";
-            path = "/var/log/caddy/*.log";
-            parser = "json";
-            tag = "caddy";
-          }
         ];
         outputs = [
           {
@@ -95,14 +89,6 @@
             port = "3100";
             labels = "job=systemd-journal,host=ultan";
             label_keys = "$SYSTEMD_UNIT,$PRIORITY";
-          }
-          {
-            name = "loki";
-            match = "caddy";
-            host = "127.0.0.1";
-            port = "3100";
-            labels = "job=caddy,host=ultan";
-            label_keys = "level,status";
           }
         ];
       };
