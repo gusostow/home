@@ -28,9 +28,10 @@ in
   users.users.backup = {
     isSystemUser = true;
     group = "backup";
-    # add to immich group to read /space/immich
+    # add to service groups to read backup directories
     extraGroups = [
       "immich"
+      "paperless"
     ];
     description = "Backup service user";
   };
