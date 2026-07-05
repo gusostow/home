@@ -62,18 +62,25 @@
     environment.REQUESTS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
   };
 
-  # WebDAV server for mobile uploads to consumption directory
-  systemd.services.paperless-webdav = {
-    description = "WebDAV server for Paperless document uploads";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "space.mount" ];
-    requires = [ "space.mount" ];
-    serviceConfig = {
-      Type = "simple";
-      User = "paperless";
-      Group = "paperless";
-      ExecStart = "${pkgs.rclone}/bin/rclone serve webdav /space/documents/inbox --addr 127.0.0.1:8082";
-      Restart = "on-failure";
+  # SMB share for mobile uploads to consumption directory
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "map to guest" = "Bad User";
+        "guest account" = "paperless";
+      };
+      scan = {
+        path = "/space/documents/inbox";
+        browseable = "yes";
+        writable = "yes";
+        "guest ok" = "yes";
+        "force user" = "paperless";
+        "force group" = "paperless";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
     };
   };
 }

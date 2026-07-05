@@ -98,7 +98,6 @@ in
     virtualHosts."idp.home" = mkInternalHost 8180;
     virtualHosts."photos.home" = mkImmichHost 2283;
     virtualHosts."docs.home" = mkInternalHost 28981;
-    virtualHosts."scan.home" = mkInternalHost 8082;
 
     # oauth2-proxy callback endpoint
     virtualHosts."auth.home" = {
