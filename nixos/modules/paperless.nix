@@ -61,4 +61,19 @@
     serviceConfig.UMask = lib.mkForce "0022";
     environment.REQUESTS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
   };
+
+  # WebDAV server for mobile uploads to consumption directory
+  systemd.services.paperless-webdav = {
+    description = "WebDAV server for Paperless document uploads";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "space.mount" ];
+    requires = [ "space.mount" ];
+    serviceConfig = {
+      Type = "simple";
+      User = "paperless";
+      Group = "paperless";
+      ExecStart = "${pkgs.rclone}/bin/rclone serve webdav /space/documents/inbox --addr 127.0.0.1:8082";
+      Restart = "on-failure";
+    };
+  };
 }
