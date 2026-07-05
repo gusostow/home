@@ -15,6 +15,7 @@ in
   "intermediate-ca-key.age".publicKeys = [ systemUltan ];
   "keycloak-db-password.age".publicKeys = [ systemUltan ];
   "grafana-oidc-secret.age".publicKeys = [ systemUltan ];
+  "grafana-secret-key.age".publicKeys = [ systemUltan ];
   "immich-oidc-secret.age".publicKeys = [ systemUltan ];
   "oauth2-proxy-env.age".publicKeys = [ systemUltan ];
 }

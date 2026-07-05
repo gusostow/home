@@ -23,6 +23,11 @@ in
     owner = "grafana";
     group = "grafana";
   };
+  age.secrets.grafana-secret-key = {
+    file = ../../secrets/grafana-secret-key.age;
+    owner = "grafana";
+    group = "grafana";
+  };
 
   services.grafana = {
     enable = true;
@@ -31,6 +36,9 @@ in
         http_addr = "127.0.0.1";
         http_port = 3000;
         root_url = "https://grafana.home";
+      };
+      security = {
+        secret_key = "$__file{${config.age.secrets.grafana-secret-key.path}}";
       };
       "auth.generic_oauth" = {
         enabled = true;

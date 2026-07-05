@@ -65,82 +65,47 @@
     };
   };
 
-  # Create promtail state directory
-  systemd.tmpfiles.rules = [
-    "d /var/lib/promtail 0755 promtail promtail -"
-  ];
-
-  # Promtail to ship logs to Loki
-  services.promtail = {
+  # Fluent Bit to ship logs to Loki
+  services.fluent-bit = {
     enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 9080;
-        grpc_listen_port = 0;
+    settings = {
+      service = {
+        flush = 1;
+        log_level = "info";
       };
-
-      positions = {
-        filename = "/var/lib/promtail/positions.yaml";
+      pipeline = {
+        inputs = [
+          {
+            name = "systemd";
+            systemd_filter = "_TRANSPORT=journal";
+            tag = "systemd";
+          }
+          {
+            name = "tail";
+            path = "/var/log/caddy/*.log";
+            parser = "json";
+            tag = "caddy";
+          }
+        ];
+        outputs = [
+          {
+            name = "loki";
+            match = "systemd";
+            host = "127.0.0.1";
+            port = "3100";
+            labels = "job=systemd-journal,host=ultan";
+            label_keys = "$SYSTEMD_UNIT,$PRIORITY";
+          }
+          {
+            name = "loki";
+            match = "caddy";
+            host = "127.0.0.1";
+            port = "3100";
+            labels = "job=caddy,host=ultan";
+            label_keys = "level,status";
+          }
+        ];
       };
-
-      clients = [
-        { url = "http://localhost:3100/loki/api/v1/push"; }
-      ];
-
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "12h";
-            labels = {
-              job = "systemd-journal";
-              host = "ultan";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-            {
-              source_labels = [ "__journal_priority_keyword" ];
-              target_label = "level";
-            }
-          ];
-        }
-        {
-          job_name = "caddy";
-          static_configs = [
-            {
-              targets = [ "localhost" ];
-              labels = {
-                job = "caddy";
-                host = "ultan";
-                __path__ = "/var/log/caddy/*.log";
-              };
-            }
-          ];
-          pipeline_stages = [
-            {
-              json = {
-                expressions = {
-                  level = "level";
-                  status = "status";
-                  duration = "duration";
-                  size = "size";
-                  request = "request";
-                };
-              };
-            }
-            {
-              labels = {
-                level = "";
-                status = "";
-              };
-            }
-          ];
-        }
-      ];
     };
   };
 }

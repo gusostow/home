@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     # cloud
     awscli2
-    nodePackages.aws-cdk
+    aws-cdk-cli
     cargo-lambda
     docker
     flyctl
@@ -42,7 +42,7 @@
 
     # dev utilities
     claude-code
-    nixfmt-rfc-style
+    nixfmt
     pandoc
     platformio
     pstree

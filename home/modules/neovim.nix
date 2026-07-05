@@ -4,18 +4,17 @@
   programs.neovim = {
     enable = true;
     withPython3 = true;
+    withRuby = false;
 
     plugins = with pkgs.vimPlugins; [
       coc-clangd
       coc-fzf
       coc-json
-      coc-go
       coc-lua
       coc-pairs
       coc-pyright
       coc-rust-analyzer
       coc-sh
-      coc-tsserver
       coc-yaml
       fzf-vim
       harpoon
@@ -28,7 +27,7 @@
     extraPackages = with pkgs; [
       gopls
       nixd
-      nixfmt-rfc-style
+      nixfmt
       ruff
       terraform-ls
     ];
@@ -65,6 +64,6 @@
       };
     };
 
-    extraLuaConfig = builtins.readFile ../../nvim/coc.lua + builtins.readFile ../../nvim/init.lua;
+    initLua = builtins.readFile ../../nvim/coc.lua + builtins.readFile ../../nvim/init.lua;
   };
 }
