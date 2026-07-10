@@ -26,6 +26,14 @@ fi
 # create output directory if needed
 mkdir -p "$OUTPUT_DIR"
 
+# pick the fastest available AAC encoder
+# aac_at is Apple's AudioToolbox encoder: faster and better quality per bit than the built-in aac
+if ffmpeg -hide_banner -encoders 2>/dev/null | grep -q '\baac_at\b'; then
+    AAC_ENCODER="aac_at"
+else
+    AAC_ENCODER="aac"
+fi
+
 # get book name from directory
 BOOK_NAME=$(basename "$BOOK_DIR")
 
@@ -48,29 +56,47 @@ echo "Found ${#mp3_files[@]} chapters"
 # create temp files
 CONCAT_FILE=$(mktemp /tmp/audiobook_concat.XXXXXX.txt)
 METADATA_FILE=$(mktemp /tmp/audiobook_metadata.XXXXXX.txt)
+ENC_DIR=$(mktemp -d /tmp/audiobook_enc.XXXXXX)
 
 # cleanup on exit
-trap "rm -f '$CONCAT_FILE' '$METADATA_FILE'" EXIT
-
-# create concat file for ffmpeg
-> "$CONCAT_FILE"
-for mp3 in "${mp3_files[@]}"; do
-    echo "file '$mp3'" >> "$CONCAT_FILE"
-done
+trap "rm -rf '$CONCAT_FILE' '$METADATA_FILE' '$ENC_DIR'" EXIT
 
 # find cover image if it exists
 COVER_IMAGE=$(find "$BOOK_DIR" -maxdepth 1 \( -name "*.jpg" -o -name "*.png" \) -type f | head -1)
 
+# encode each chapter to an intermediate m4a in parallel, then concat with stream copy
+# the concat re-encode was single-threaded; encoding chapters independently uses all cores
+NPROC=$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)
+echo "Encoding ${#mp3_files[@]} chapters in parallel ($NPROC at a time)..."
+
+# emit (output_path, input_path) pairs NUL-delimited and encode two args at a time
+for i in "${!mp3_files[@]}"; do
+    printf '%s/%04d.m4a\0%s\0' "$ENC_DIR" "$i" "${mp3_files[$i]}"
+done | xargs -0 -P "$NPROC" -n2 sh -c '
+    # -map 0:a drops any embedded cover art the source mp3s carry as a video stream
+    ffmpeg -y -loglevel error -i "$2" -map 0:a -c:a "$0" -b:a 64k -f mp4 "$1"
+' "$AAC_ENCODER"
+
+# build concat file from the encoded intermediates, preserving order
+> "$CONCAT_FILE"
+for i in "${!mp3_files[@]}"; do
+    printf "file '%s/%04d.m4a'\n" "$ENC_DIR" "$i" >> "$CONCAT_FILE"
+done
+
 # create metadata file with chapters
 echo ";FFMETADATA1" > "$METADATA_FILE"
 
-# calculate chapter timestamps
+# calculate chapter timestamps from the ENCODED segments
+# AAC priming makes each segment slightly longer than its source mp3, so measure the
+# intermediates to keep chapter marks aligned with the copy-concatenated stream
 cumulative_ms=0
 chapter_num=1
 
-for mp3 in "${mp3_files[@]}"; do
+for i in "${!mp3_files[@]}"; do
+    seg=$(printf '%s/%04d.m4a' "$ENC_DIR" "$i")
+
     # get duration in milliseconds
-    duration_ms=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$mp3" | awk '{print int($1 * 1000)}')
+    duration_ms=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$seg" | awk '{print int($1 * 1000)}')
 
     # write chapter metadata
     echo "" >> "$METADATA_FILE"
@@ -99,7 +125,7 @@ if [ -n "$COVER_IMAGE" ]; then
         -i "$COVER_IMAGE" \
         -map_metadata 1 \
         -map 0:a -map 2:v \
-        -c:a aac -b:a 64k \
+        -c:a copy \
         -c:v copy \
         -disposition:v:0 attached_pic \
         -f mp4 \
@@ -120,7 +146,7 @@ else
         -i "$METADATA_FILE" \
         -map_metadata 1 \
         -map 0:a \
-        -c:a aac -b:a 64k \
+        -c:a copy \
         -f mp4 \
         -movflags +faststart \
         -metadata title="$BOOK_NAME" \
