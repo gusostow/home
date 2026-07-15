@@ -74,6 +74,9 @@
               };
             in
             {
+              # expose custom packages so `nix build .#decluttarr` works
+              packages.decluttarr = pkgs.python3Packages.callPackage ./pkgs/decluttarr { };
+
               apps.install-hooks = {
                 type = "app";
                 program = toString (
