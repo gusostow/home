@@ -6,13 +6,14 @@
 
 buildPythonApplication rec {
   pname = "decluttarr";
-  version = "2.0.0";
+  # v2.1.0 adds support for the QBT_SID_<port> cookie name introduced in qBittorrent 5.2
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "ManiMatter";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-3mB5+ao3w+CkyTS/o1O9/7UXOoGkA/mTpJNEQxUTa9Q=";
+    hash = "sha256-pOuAQ2KKvhmUM6xX5iX9s33ZXL3OLx6yIOL8LZF1W64=";
   };
 
   propagatedBuildInputs = with python.pkgs; [
